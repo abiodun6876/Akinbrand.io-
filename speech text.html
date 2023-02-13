@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title></title>
+</head>
+<body>
+
+<button id="start-btn">Start Recording</button>
+<button id="stop-btn">Stop Recording</button>
+<p id="transcript"></p>
+
+<script>
+  var finalTranscript = '';
+  var speechRecognition = new webkitSpeechRecognition();
+  var startButton = document.getElementById("start-btn");
+  var stopButton = document.getElementById("stop-btn");
+  var transcriptParagraph = document.getElementById("transcript");
+
+  speechRecognition.continuous = true;
+  speechRecognition.interimResults = true;
+  speechRecognition.lang = "en-US";
+
+  startButton.addEventListener("mousedown", startRecording);
+  stopButton.addEventListener("mouseup", stopRecording);
+
+  function startRecording() {
+    finalTranscript = '';
+    speechRecognition.start();
+  }
+
+  function stopRecording() {
+    speechRecognition.stop();
+  }
+
+  speechRecognition.onresult = function(event) {
+    var interimTranscript = '';
+
+    for (var i = event.resultIndex; i < event.results.length; i++) {
+        var transcript = event.results[i][0].transcript;
+        if (event.results[i].isFinal) {
+            finalTranscript += transcript;
+        } else {
+            interimTranscript += transcript;
+        }
+    }
+
+    transcriptParagraph.innerText = finalTranscript;
+  };
+</script>
+
+
+
+</body>
+</html>
