@@ -1,0 +1,213 @@
+
+<html>
+
+<head>
+<meta charset="utf-8">
+  
+  <!-- Meta tag with additional viewport properties -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+  <!-- Meta tags for description and keywords -->
+  <meta name="description" content="Patient Diagnosis App | developed by: Akinbrand.io">
+  <meta name="keywords" content="HTML, css, javascript">
+  <!---email:abiodunmosesakinpelu@gmail.com--->
+  
+  <title>Patient Diagnosis App</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color:grey;
+      background-image:url("http://cloud-connect.atspace.cc/doctor.jpeg");
+      
+    background-repeat: no-repeat;
+        
+      
+    }
+    
+    
+
+    h1 {
+      text-align: center;
+    }
+
+    
+    .patient-info {
+    margin: 0 auto;
+    width: 300px;
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin-top:50px;
+    }
+
+    .patient-info input {
+      width: 100%;
+      margin-bottom: 10px;
+      padding: 8px;
+      box-sizing: border-box;
+      
+    }
+
+    .patient-info label {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 10px;
+      color:black;
+      color:white;
+      background-color:grey;
+    }
+
+    .test-results {
+      margin: 20px 20px;
+      border: 1px solid #ccc;
+      padding: 10px;
+      margin-top:80px;
+      color:white;
+      background-color:grey;
+    }
+
+    .test-results h2 {
+      margin: 0 0 10px 0;
+    }
+
+    .test-results p {
+      margin: 0;
+    }
+    
+    .prescription {
+    margin: 20px 20px;
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin-top:90px;
+    color:white;
+    background-color:grey;
+    }
+    
+    @media only screen and (max-width: 960px) {
+    /* CSS styles for mobile devices */
+    body {
+    font-size: 14px;
+    }
+    .menu {
+    display: none;
+    }
+    }
+    
+    @media only screen and (min-width: 961px) {
+    /* CSS styles for desktop devices */
+    body {
+    font-size: 16px;
+    }
+    .menu {
+    display: block;
+    }
+    }
+    
+    
+  </style>
+</head>
+
+<body>
+  <h1 style="margin: 20px 0;
+  border: 1px solid #ccc;
+  padding: 10px;color:white;background-color:grey;">Patient Diagnosis App</h1>
+
+
+  
+  
+  <div class="patient-info">
+    <label for="patient-name">Patient Name:</label>
+    <input type="text" id="patient-name" placeholder="Name" />
+
+    <label for="patient-age">Patient Age:</label>
+    <input type="number" id="patient-age" placeholder="Age" />
+
+  <label for="patient-symptoms">Symptoms:</label>
+   <input type="text" id="patient-symptoms" placeholder="symptoms" />
+    
+    
+  </div>
+
+ <center> <button onclick="performDiagnosis()"><h2>Perform Diagnosis</h2></button></center>
+
+  <div class="test-results">
+    <h2>Test Results:</h2>
+    <p id="test-results"><h3></h3></p>
+  </div>
+
+  <div class="prescription">
+    <h2>Prescription:</h2>
+    <p id="prescription"><h3></h3></p>
+  </div>
+<div style="margin: 20px 0;
+  border: 1px solid #ccc;
+  padding: 10px;color:white;background-color:grey;>
+ <center> <h2>List of programmed sickness and diseases:</h2></center>
+  <hr>
+  <p style="margin: 20px 0;
+  border: 1px solid #ccc;
+  padding: 10px;color:white;background-color:grey;><h2 >cough,fever,rash,headache,chest pain,dizziness,stomach pain,joint pain</h2></p>
+  </div>
+  <script>
+    function performDiagnosis() {
+      // Get the patient's information from the form
+      var patientName = document.getElementById('patient-name').value;
+      var patientAge = document.getElementById('patient-age').value;
+      var patientSymptoms = document.getElementById('patient-symptoms').value;
+
+      // Perform the diagnosis and get the results
+      var diagnosis = diagnose(patientName, patientAge, patientSymptoms);
+      var testResults = diagnosis.testResults;
+      var prescription = diagnosis.prescription;
+
+      // Display the results on the page
+      document.getElementById('test-results').innerHTML = testResults;
+      document.getElementById('prescription').innerHTML = prescription;
+    }
+
+   
+    
+    function diagnose(name, age, symptoms) {
+    var diagnosis = {
+    testResults: '',
+    prescription: ''
+    };
+    
+    // Perform test based on the patient's symptoms
+    if (symptoms.includes('cough')) {
+    diagnosis.testResults = 'Positive for pneumonia. Recommend antibiotics.';
+    diagnosis.prescription = 'Amoxicillin 500mg, twice daily for 7 days';
+    } else if (symptoms.includes('fever')) {
+    diagnosis.testResults = 'Positive for influenza. Recommend rest and fluids.';
+    diagnosis.prescription = 'Ibuprofen 200mg, every 4-6 hours as needed for fever and pain';
+    } else if (symptoms.includes('rash')) {
+    diagnosis.testResults = 'Positive for chickenpox. Recommend antiviral medication.';
+    diagnosis.prescription = 'Acyclovir 800mg, five times daily for 7-10 days';
+    } else if (symptoms.includes('headache') && symptoms.includes('nausea')) {
+    diagnosis.testResults = 'Positive for migraines. Recommend pain relievers and avoidance of triggers.';
+    diagnosis.prescription = 'Ibuprofen 200mg, every 4-6 hours as needed for pain. Avoid bright lights, loud noises, and strong smells.';
+    } else if (symptoms.includes('chest pain')) {
+    diagnosis.testResults = 'Possible heart attack. Recommend immediate medical attention.';
+    diagnosis.prescription = 'Call 911 or go to the nearest emergency room.';
+    } else if (symptoms.includes('dizziness')) {
+    diagnosis.testResults = 'Possible inner ear infection. Recommend vestibular rehabilitation and antibiotics.';
+    diagnosis.prescription = 'Ciprofloxacin 500mg, twice daily for 7 days. See a vestibular therapist for exercises to improve balance.';
+    } else if (symptoms.includes('stomach pain')) {
+    diagnosis.testResults = 'Possible gastroenteritis. Recommend hydration and rest.';
+    diagnosis.prescription = 'Drink plenty of fluids and avoid solid foods until symptoms improve. If vomiting persists, see a doctor for possible intravenous fluids.';
+    } else if (symptoms.includes('joint pain')) {
+    diagnosis.testResults = 'Possible arthritis. Recommend pain relievers and physical therapy.';
+    diagnosis.prescription = 'Ibuprofen 200mg, every 4-6 hours as needed for pain. See a physical therapist for exercises to improve joint mobility and strength.';
+    } else {
+    diagnosis.testResults = 'Symptoms do not match any known illnesses. Recommend further testing.';
+    diagnosis.prescription = 'None';
+    }
+    
+    return diagnosis;
+    }
+    
+      </script>
+      </body>
+      
+      </html>
+      
+      
+
