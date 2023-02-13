@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Tax Calculator</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" crossorigin="anonymous" />
+    
+  </head>
+  <body>
+    
+    
+    
+    
+    <div class="container">
+    <h1>Nigerian Tax Calculator</h1>
+    <form>
+    <label for="income">Enter your income:</label>
+    <input type="text" id="income" name="income">
+    <br>
+    <label for="tax-rate">Enter your tax rate:</label>
+    <input type="text" id="tax-rate" name="tax-rate">
+    <br>
+   
+    <button type="button" class="calculate-btn" onclick="calculateTax()"><i class="fas fa-calculator"></i> Calculate</button>
+    
+    </form>
+    <p id="result"></p>
+    </div>
+    <style type="text/css">
+    body {
+    background-color: #F5F5F5;
+    }
+    
+    .container {
+    width: 50%;
+    margin: 0 auto;
+    text-align: center;
+    box-shadow: 0px 0px 10px #3f51b5;
+    
+    
+    }
+    
+    h1 {
+    color: #3f51b5;
+    margin-bottom: 50px;
+    }
+    
+    input[type=text] {
+    width: 60%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    box-sizing: border-box;
+    border: 2px solid #3f51b5;
+    border-radius: 4px;
+    }
+    
+    .calculate-btn {
+    padding: 14px 20px;
+    font-size: 20px;
+    background: transparent;
+    color:white;
+    border: 2px solid #3f51b5;
+    border-radius: 4px;
+    cursor: pointer;
+    }
+    
+    #result {
+    color: #3f51b5;
+    font-size: 18px;
+    margin-top: 20px;
+    }
+    
+    h1, label {
+    font-family: Arial, sans-serif;
+    }
+    
+    input[type=text] {
+    border: 2px solid #3f51b5;
+    background-color: #F5F5F5;
+    }
+    
+    .calculate-btn:hover {
+    background-color: #3f51b5;
+    color: #F5F5F5;
+    }
+    
+    form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    }
+    
+    @media screen and (max-width: 600px) {
+    form {
+    flex-direction: column;
+    }
+    input[type=text] {
+    width: 100%;
+    }
+    .calculate-btn {
+    width: 100%;
+    }
+    }
+    .calculate-btn {
+    background: linear-gradient(to right, #3f51b5, #ff5722);
+    }
+    
+    .calculate-btn {
+    transition: all 0.3s ease-in-out;
+    }
+    .calculate-btn:active {
+    transform: scale(0.9);
+    }
+    
+    #result {
+    color: #3f51b5;
+    }
+    #result.high {
+    color: red;
+    }
+    
+    #result {
+    animation: fadeInOut 1s ease-in-out;
+    }
+    @keyframes fadeInOut {
+    0% {
+    opacity: 0;
+    }
+    100% {
+    opacity: 1;
+    }
+    }
+    
+    #result {
+    border: 1px solid #3f51b5;
+    padding: 10px;
+    }
+    label {
+    font-size: 18px;
+    color: #3f51b5;
+    margin-bottom: 10px;
+    background-color: #3f51b5;
+    color: #F5F5F5;
+    padding: 10px;
+    
+    }
+    
+    </style>
+
+    <script>
+      function calculateTax() {
+      // Get the income and tax rate from the form
+      var income = document.getElementById("income").value;
+      var taxRate = document.getElementById("tax-rate").value;
+      
+      // Calculate the tax
+      var tax = income * (taxRate / 100);
+      
+      // Display the result
+      document.getElementById("result").innerHTML = "Your tax is #" + tax;
+      }
+      
+      </script>
+      </body>
+      </html>
