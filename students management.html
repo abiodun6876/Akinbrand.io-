@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>School Management System</title>
+	<style>
+		/* Add some styling to make the page look nice */
+		body {
+			font-family: sans-serif;
+		}
+		table {
+			border-collapse: collapse;
+		}
+		td, th {
+			border: 1px solid #ccc;
+			padding: 8px;
+		}
+		th {
+			background-color: #ddd;
+		}
+	</style>
+</head>
+<body>
+	<h1>School Management System</h1>
+
+	<!-- This is the form for adding new students to the database -->
+	<h2>Add New Student</h2>
+	<form id="add-student-form">
+		<label for="name">Name:</label><br>
+		<input type="text" id="name" name="name"><br>
+
+		<label for="class">Class:</label><br>
+		<input type="text" id="class" name="class"><br>
+
+		<label for="year">Year:</label><br>
+		<input type="number" id="year" name="year"><br>
+
+		<label for="total-fees">Total Fees:</label><br>
+		<input type="number" id="total-fees" name="total-fees"><br>
+
+		<label for="amount-paid">Amount Paid:</label><br>
+		<input type="number" id="amount-paid" name="amount-paid"><br>
+
+		<label for="parents-info">Parents Information:</label><br>
+		<input type="text" id="parents-info" name="parents-info"><br>
+
+		<input type="submit" value="Add Student">
+	</form>
+
+	<!-- This is the table for displaying all students in the database -->
+	<h2>Student Records</h2>
+	<table id="student-table">
+		<tr>
+			<th>Name</th>
+			<th>Class</th>
+			<th>Year</th>
+			<th>Total Fees</th>
+			<th>Amount Paid</th>
+			<th>Debt</th>
+			<th>Date and Time</th>
+			<th>Parents Information</th>
+			<th>Actions</th>
+		</tr>
+	</table>
+
+	<!-- This is the form for searching for students in the database -->
+	<h2>Search for Student</h2>
+	<form id="search-student-form">
+		<label for="search-input">Enter name or class:</label><br>
+		<input type="text" id="search-input" name="search-input"><br>
+		<input type="submit" value="Search">
+	</form>
+
+	<script>
+	
+// Get references to the form and table elements
+const addStudentForm = document.getElementById('add-student-form');
+const studentTable = document.getElementById('student-table');
+const searchStudentForm = document.getElementById('search-student-form');
+
+// This is the array that will store all of the student records
+let students = [];
+
+// This function adds a new student to the students array and then updates the table
+function addStudent(event) {
+	// Prevent the form from actually submitting
+	event.preventDefault();
+
+	// Get the values from the form input fields
+	const name = document.getElementById('name').value;
+	const className = document.getElementById('class').value;
+	const year = document.getElementById('year').value;
+	const totalFees = document.getElementById('total-fees').value;
+	const amountPaid = document.getElementById('amount-paid').value;
+	const parentsInfo = document.getElementById('parents-info').value;
+
+	// Calculate the debt
+	const debt = totalFees - amountPaid;
+
+	// Get the current date and time
+	const date = new Date();
+
+	// Create the new student object
+	const student = {
+		name,
+		className,
+		year,
+		totalFees,
+		amountPaid,
+		debt,
+		date,
+		parentsInfo
+	};
+
+	// Add the new student to the students array
+	students.push(student);
+
+	// Clear the form input fields
+	addStudentForm.reset();
+
+	// Update the table
+	updateTable();
+
+	// Save the updated students array to local storage
+	localStorage.setItem('students', JSON.stringify(students));
+}
+
+// This function updates the table with the current list of students
+function updateTable() {
+	// Clear the existing table rows
+	studentTable.innerHTML = '';
+
+	// Loop through the students array
+	for (const student of students) {
+		// Create a new row
+		const row = document.createElement('tr');
+
+		// Add the
+// Add the student data to the row
+row.innerHTML = `
+	<td>${student.name}</td>
+	<td>${student.className}</td>
+	<td>${student.year}</td>
+	<td>${student.totalFees}</td>
+	<td>${student.amountPaid}</td>
+	<td>${student.debt}</td>
+	<td>${student.date}</td>
+	<td>${student.parentsInfo}</td>
+	<td>
+		<button class="update-button">Update</button>
+		<button class="delete-button">Delete</button>
+	</td>
+`;
+
+// Add the update and delete buttons to the row
+const updateButton = row.querySelector('.update-button');
+const deleteButton = row.querySelector('.delete-button');
+
+// Add event listeners to the update and delete buttons
+updateButton.addEventListener('click', () => updateStudent(student.id));
+deleteButton.addEventListener('click', () => deleteStudent(student.id));
+
+// Add the row to the table
+studentTable.appendChild(row);
+			}
+		}
+
+		// This function updates the information for an existing student
+		function updateStudent(id) {
+			// TODO: Implement this function
+		}
+
+		// This function deletes a student from the students array and updates the table
+		function deleteStudent(id) {
+			// TODO: Implement this function
+		}
+
+		// This function searches for students by name or class
+		function searchStudents(event) {
+			// Prevent the form from actually submitting
+			event.preventDefault();
+
+			// Get the search input
+			const searchInput = document.getElementById('search-input').value;
+
+			// TODO: Implement search functionality
+		}
+
+		// Add event listeners to the forms
+		addStudentForm.addEventListener('submit', addStudent);
+		searchStudentForm.addEventListener('submit', searchStudents);
+
+		// Load the existing student records from local storage and update the table
+		const savedStudents = localStorage.getItem('students');
+		if (savedStudents) {
+			students = JSON.parse(savedStudents);
+			updateTable();
+		}
+	</script>
+</body>
+</html>
