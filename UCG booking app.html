@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <!-- Meta tag with additional viewport properties -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+    <!-- Meta tags for description and keywords -->
+    <meta name="description" content="Welcome to Upper Crust Geek Solutions! We are excited to offer a free 30-minute virtual session to discuss your brand. During this session, we will be able to analyze your brand with you, recommend a growth plan, and discuss how to implement the plan for the year 2023. | web: https://uppercrustng.com/</p>
+     | developed by: Akinbrand.io">
+    <meta name="keywords" content="UCG Brand consultation">
+    <!---email:abiodunmosesakinpelu@gmail.com--->
+    
+    
+    
+    <title>UCG Brand Consultation</title>
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+  
+  </head>
+  <body>
+  <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
+  
+  
+  <div class="container">
+  <!-- code here -->
+  <div class="card">
+  <div class="card-image">	
+  <h2 class="card-heading">
+  Get started |
+  <small>Let us book a consultaion for you</small>
+  </h2>
+  </div>
+  
+  <form action="https://formspree.io/f/mpzezloy"
+  method="POST" class="card-form" id="consultation-form">
+  <div class="input">
+  <input type="text" id="name" class="input-field" name="name" required/>
+  <label for="name" class="input-label">Full name</label>
+  </div>
+  <div class="input">
+  <input type="text" id="designation" class="input-field" name="designation">
+  <label for="designation" class="input-label">Designation:</label>
+  </div>
+  
+    <div class="input">
+  <input type="text" id="organisation" class="input-field" name="organisation">
+  <label for="organisation" class="input-label">Organisation:</label>
+  </div>
+  
+  
+  <div class="input">
+  <input type="text" class="input-field" name="vlockn@gmail.com" required/>
+  <label for="input-label" class="input-label">Email</label>
+  </div>
+  
+  <div class="input">
+  <input type="Date" id="date-time" name="date-time" class="input-field"><br>
+  <input type="Time" id="date-time" name="date-time" class="input-field">
+  
+  <label for="date-time" class="input-label">Date and Time:</label>
+  </div>
+  
+  
+  
+  <div class="action">
+  <button class="action-button">Book Consultation</button>
+  </div>
+  </form>
+  <div class="card-info">
+  <p><a href="https://uppercrustng.com">Visit our website</a> <a href="#">Terms and Conditions</a></p>
+  </div>
+  </div>
+  </div>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+    
+  
+      
+      
+      
+      
+    
+    
+    <style type="text/css">
+    @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap');
+    
+    *, *:after, *:before {
+    box-sizing: border-box;
+    }
+    
+    body {
+    font-family: "DM Sans", sans-serif;
+    line-height: 1.5;
+    background-color: #f1f3fb;
+    padding: 0 2rem;
+    }
+    
+    img {
+    max-width: 100%;
+    display: block;
+    }
+    
+    
+    // iOS Reset 
+    .input {
+    appearance: none;
+    border-radius: 0;
+    }
+    
+    .card {
+    margin: 2rem auto;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 425px;
+    background-color:#FFF;
+    border-radius: 10px;
+    box-shadow: 0 10px 20px 0 rgba(#999, .25);
+    padding: .75rem;
+    }
+    
+    .card-image {
+    border-radius: 8px;
+    overflow: hidden;
+    padding-bottom: 65%;
+    background-image: url('https://assets.codepen.io/285131/coffee_1.jpg');
+    background-repeat: no-repeat;
+    background-size: 150%;
+    background-position: 0 5%;
+    position: relative;
+    }
+    
+    .card-heading {
+    position: absolute;
+    left: 10%;
+    top: 15%;
+    right: 10%;
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: red;
+    line-height: 1.222;
+    small {
+    display: block;
+    font-size: .75em;
+    font-weight: 400;
+    margin-top: .25em;
+    }
+    }
+    
+    .card-form {
+    padding: 2rem 1rem 0;
+    }
+    
+    .input {
+    display: flex;
+    flex-direction: column-reverse;
+    position: relative;
+    padding-top: 1.5rem;
+    &+.input {
+    margin-top: 1.5rem;
+   font-color:white;
+    }
+    }
+    
+    .input-label {
+    color: #8597a3;
+    position: absolute;
+    top: 1.5rem;
+    transition: .25s ease;
+    }
+    
+    .input-field {
+   
+    border: 0;
+    z-index: 1;
+    background-color: transparent;
+    border-bottom: 2px solid #eee; 
+    font: inherit;
+    font-size: 1.125rem;
+    font-color:white;
+    padding: .25rem 0;
+    &:focus, &:valid {
+    outline: 0;
+    border-bottom-color: #6658d3;
+    &+.input-label {
+    font-color: white;
+    transform: translateY(-1.5rem);
+    }
+    }
+    }
+    
+    
+    .card-info {
+    padding: 1rem 1rem;
+    text-align: center;
+    font-size: .875rem;
+    color: #8597a3;
+    a {
+    display: block;
+    color: #6658d3;
+    text-decoration: none;
+    }
+    }
+    
+    .action {
+    margin-top: 2rem;
+    }
+    
+    .action-button {
+    font: inherit;
+    font-size: 1.25rem;
+    padding: 1em;
+    width: 100%;
+    font-weight: 500;
+    background-color: red;
+    border-radius: 6px;
+    color: #FFF;
+    border: 0;
+    &:focus {
+    outline: 0;
+    }
+    }
+    
+    @media only screen and (max-width: 960px) {
+    /* CSS styles for mobile devices */
+    body {
+    font-size: 14px;
+    }
+    .menu {
+    display: none;
+    }
+    }
+    
+    @media only screen and (min-width: 961px) {
+    /* CSS styles for desktop devices */
+    body {
+    font-size: 16px;
+    }
+    .menu {
+    display: block;
+    }
+    }
+    
+    
+    </style>
+    <script type="text/javascript">
+    /*
+    const dateTimeInput = form['date-time'];
+    
+    // Initialize Flatpickr calendar for date and time selection
+    flatpickr(dateTimeInput, {
+    enableTime: true,
+    dateFormat: "Y-m-d H:i",
+    });
+    
+    
+    const form = document.getElementById('consultation-form');
+    form.addEventListener('submit', (event) => {
+    event.preventDefault();
+    const name = form['name'].value;
+    const designation = form['designation'].value;
+    const organisation = form['organisation'].value;
+    const dateTime = form['date-time'].value;
+    
+    // Validate form fields here
+    
+    // If form is valid, save consultation request to local storage
+    if (formIsValid) {
+    const consultationRequests = JSON.parse(localStorage.getItem('consultationRequests')) || [];
+    consultationRequests.push({ name, designation, organisation, dateTime });
+    localStorage.setItem('consultationRequests', JSON.stringify(consultationRequests));
+    
+    // Send email notification to UCG
+    Email.send({
+    SecureToken: "service_h8f3af9",
+    To : 'abiodunmosesakinpelu@gmail.com',
+    From : 'abiodunmosesakinpelu@gmail.com',
+    Subject : "Brand Consultation Request",
+    Body : `<p>Name: ${name}</p><p>Designation: ${designation}</p><p>Organisation: ${organisation}</p><p>Date and Time: ${dateTime}</p>`,
+    }).then(
+    message => alert('Thank you for your request! We will be in touch shortly to confirm the details of your consultation.')
+    );
+    }
+    });
+    
+    */
+    
+    </script>
+    
+  </body>
+</html>
