@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Data Visualization</title>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.15.0/d3.min.js"></script>
+
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+  <style>
+    .bar {
+      fill: steelblue;
+    }
+
+    .bar:hover {
+      fill: brown;
+    }
+
+    .axis--x path {
+      display: none;
+    }
+
+    .label {
+      font: 10px sans-serif;
+    }
+  </style>
+</head>
+<body>
+<h1>Data Visualization App</h1>
+  <div id="plot"></div>
+<script type="text/javascript">
+    // Example data set
+    var data1 = [{
+      x: [1, 2, 3, 4],
+      y: [10, 15, 13, 17],
+      type: 'scatter'
+    }];
+
+    // Plot the data
+    Plotly.newPlot('plot', data1);
+  </script>
+  <script>
+    // Sample data
+    const data = [
+      {name: "BWW", value: 100},
+      {name: "TESLA", value: 200},
+      {name: "TOYOTA", value: 50},
+      {name: "GWAGON", value: 75},
+      {name: "AUDI", value: 125}
+    ];
+
+    // SVG container
+    const svg = d3.select("body")
+      .append("svg")
+      .attr("width", 500)
+      .attr("height", 500);
+
+    // Scales
+    const xScale = d3.scaleBand()
+      .domain(data.map(d => d.name))
+      .range([0, 500])
+      .padding(0.1);
+
+    const yScale = d3.scaleLinear()
+      .domain([0, d3.max(data, d => d.value)])
+      .range([450, 0]);
+
+    // Axes
+    const xAxis = d3.axisBottom(xScale);
+    const yAxis = d3.axisLeft(yScale);
+
+    svg.append("g")
+      .attr("transform", "translate(0, 450)")
+      .call(xAxis);
+
+    svg.append("g")
+      .call(yAxis);
+
+    // Bars
+    svg.selectAll(".bar")
+      .data(data)
+      .enter()
+      .append("rect")
+      .attr("class", "bar")
+      .attr("x", d => xScale(d.name))
+      .attr("y", d => yScale(d.value))
+      .attr("width", xScale.bandwidth())
+      .attr("height", d => 450 - yScale(d.value));
+
+    // Labels
+    svg.selectAll(".label")
+      .data(data)
+      .enter()
+      .append("text")
+      .attr("class", "label")
+      .attr("x", d => xScale(d.name) + xScale.bandwidth() / 2)
+      .attr("y", d => yScale(d.value) - 10)
+      .text(d => d.value);
+  </script>
+</body>
+</html>
