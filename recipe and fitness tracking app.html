@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Recipe and Fitness Tracking App</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"  crossorigin="anonymous" referrerpolicy="no-referrer" />
+  
+</head>
+<body>
+  <header>
+    <h1>Recipe and Fitness Tracking App</h1>
+  </header>
+  
+  <main>
+    <section id="recipes">
+      <h2>Recipes</h2>
+      <div id="recipe-list"></div>
+      <button id="add-recipe"><i class="fas fa-plus"></i> Add Recipe</button>
+    </section>
+    
+    <section id="fitness">
+      <h2>Fitness</h2>
+      <div id="workout-list"></div>
+      <button id="add-workout"><i class="fas fa-plus"></i> Add Workout</button>
+    </section>
+  </main>
+  
+  <div id="recipe-modal" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <h3>Add Recipe</h3>
+      <form id="recipe-form">
+        <label for="recipe-name">Name:</label>
+        <input type="text" id="recipe-name" name="name">
+        <label for="recipe-description">Description:</label>
+        <textarea id="recipe-description" name="description"></textarea>
+        <label for="recipe-ingredients">Ingredients:</label>
+        <textarea id="recipe-ingredients" name="ingredients"></textarea>
+        <label for="recipe-instructions">Instructions:</label>
+        <textarea id="recipe-instructions" name="instructions"></textarea>
+        <button type="submit">Save</button>
+      </form>
+    </div>
+  </div>
+  
+  <div id="workout-modal" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <h3>Add Workout</h3>
+      <form id="workout-form">
+        <label for="workout-name">Name:</label>
+        <input type="text" id="workout-name" name="name">
+        <label for="workout-description">Description:</label>
+        <textarea id="workout-description" name="description"></textarea>
+        <label for="workout-duration">Duration (minutes):</label>
+        <input type="number" id="workout-duration" name="duration">
+        <button type="submit">Save</button>
+      </form>
+    </div>
+  </div>
+  <style type="text/css">
+  /* Body styles */
+  body {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+  background-color: #f2f2f2;
+  }
+  
+  /* Header styles */
+  header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #fff;
+  padding: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  }
+  
+  header h1 {
+  margin: 0;
+  font-size: 24px;
+  color: #333;
+  }
+  
+  header nav {
+  display: flex;
+  }
+  
+  header nav a {
+  margin-right: 20px;
+  color: #333;
+  font-weight: bold;
+  text-decoration: none;
+  }
+  
+  header nav a:hover {
+  color: #007bff;
+  }
+  
+  /* Main content styles */
+  main {
+  display: flex;
+  justify-content: space-between;
+  margin: 20px;
+  }
+  
+  /* Recipe list styles */
+  .recipe-list {
+  width: 60%;
+  background-color: #fff;
+  padding: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  }
+  
+  .recipe-list h2 {
+  margin-top: 0;
+  font-size: 20px;
+  font-weight: bold;
+  color: #333;
+  }
+  
+  .recipe-list ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  }
+  
+  .recipe-list li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  border-bottom: 1px solid #ccc;
+  }
+  
+  .recipe-list li:last-child {
+  border-bottom: none;
+  }
+  
+  .recipe-list li .name {
+  font-weight: bold;
+  color: #333;
+  }
+  
+  .recipe-list li .calories {
+  color: #777;
+  }
+  
+  /* Fitness tracker styles */
+  .fitness-tracker {
+  width: 35%;
+  background-color: #fff;
+  padding: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  }
+  
+  .fitness-tracker h2 {
+  margin-top: 0;
+  font-size: 20px;
+  font-weight: bold;
+  color: #333;
+  }
+  
+  .fitness-tracker form {
+  display: flex;
+  flex-direction: column;
+  }
+  
+  .fitness-tracker label {
+  margin-bottom: 10px;
+  font-weight: bold;
+  }
+  
+  .fitness-tracker input {
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  margin-bottom: 20px;
+  }
+  
+  .fitness-tracker button {
+  padding: 10px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  }
+  
+  .fitness-tracker button:hover {
+  background-color: #0062cc;
+  }
+  
+  </style>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script type="text/javascript">
+  // Recipe and Fitness Tracking App
+  
+  // Define constants
+  const recipeList = $('#recipe-list');
+  const workoutList = $('#workout-list');
+  const addRecipeBtn = $('#add-recipe');
+  const addWorkoutBtn = $('#add-workout');
+  const recipeModal = $('#recipe-modal');
+  const workoutModal = $('#workout-modal');
+  const recipeForm = $('#recipe-form');
+  const workoutForm = $('#workout-form');
+  
+  // Load data from local storage
+  let recipes = JSON.parse(localStorage.getItem('recipes')) || [];
+  let workouts = JSON.parse(localStorage.getItem('workouts')) || [];
+  
+  // Render recipe list
+  function renderRecipes() {
+  recipeList.empty();
+  if (recipes.length === 0) {
+  recipeList.append('<p>No recipes yet. Add one now!</p>');
+  } else {
+  recipes.forEach((recipe, index) => {
+  recipeList.append(`
+  <div class="recipe">
+  <h3>${recipe.name}</h3>
+  <p>${recipe.description}</p>
+  <button class="delete-recipe" data-index="${index}"><i class="fas fa-trash-alt"></i> Delete</button>
+  </div>
+  `);
+  });
+  }
+  }
+  
+  // Render workout list
+  function renderWorkouts() {
+  workoutList.empty();
+  if (workouts.length === 0) {
+  workoutList.append('<p>No workouts yet. Add one now!</p>');
+  } else {
+  workouts.forEach((workout, index) => {
+  workoutList.append(`
+  <div class="workout">
+  <h3>${workout.name}</h3>
+  <p>${workout.description}</p>
+  <p>Duration: ${workout.duration} minutes</p>
+  <button class="delete-workout" data-index="${index}"><i class="fas fa-trash-alt"></i> Delete</button>
+  </div>
+  `);
+  });
+  }
+  }
+  
+  // Show recipe modal
+  function showRecipeModal() {
+  recipeModal.css('display', 'block');
+  }
+  
+  // Show workout modal
+  function showWorkoutModal() {
+  workoutModal.css('display', 'block');
+  }
+  
+  // Hide recipe modal
+  function hideRecipeModal() {
+  recipeModal.css('display', 'none');
+  }
+  
+  // Hide workout modal
+  function hideWorkoutModal() {
+  workoutModal.css('display', 'none');
+  }
+  
+  // Handle recipe form submit
+  function handleRecipeSubmit(event) {
+  event.preventDefault();
+  const recipe = {
+  name: $('#recipe-name').val(),
+  description: $('#recipe-description').val(),
+  ingredients: $('#recipe-ingredients').val(),
+  instructions: $('#recipe-instructions').val(),
+  };
+  recipes.push(recipe);
+  localStorage.setItem('recipes', JSON.stringify(recipes));
+  hideRecipeModal();
+  renderRecipes();
+  }
+  
+  // Handle workout form submit
+  function handleWorkoutSubmit(event) {
+  event.preventDefault();
+  const workout = {
+  name: $('#workout-name').val(),
+  description: $('#workout-description').val(),
+  duration: $('#workout-duration').val(),
+  };
+  workouts.push(workout);
+  localStorage.setItem('workouts', JSON.stringify(workouts));
+  hideWorkoutModal();
+  renderWorkouts();
+  }
+  
+  // Handle delete recipe
+  function handleDeleteRecipe(event) {
+  const index = $(event.target).data('index');
+  recipes.splice(index, 1);
+  localStorage.setItem('recipes', JSON.stringify(recipes));
+  renderRecipes();
+  }
+  
+  // Handle delete workout
+  function handleDeleteWorkout(event) {
+  const index = $(event.target).data('index');
+  workouts.splice(index, 1);
+  localStorage.setItem('workouts', JSON.stringify(workouts));
+  renderWorkouts();
+  }
+  
+  // Bind event listeners
+  addRecipeBtn.click(showRecipeModal);
+  addWorkoutBtn.click(showWorkoutModal);
+  recipeModal.find('.close').click(hideRecipeModal);
+  workoutModal.find('.close').click(hideWorkoutModal);
+  recipeForm.submit(handleRecipeSubmit);
+  workoutForm.submit(handleWorkoutSubmit);
+  recipeList.on('click', '.delete-recipe', handleDeleteRecipe);
+  workoutList.on('click', '.delete-workout', handleDeleteWorkout);
+  
+  // Call render functions
+  renderRecipes();
+  renderWorkouts();
+  
+  
+  </script>
