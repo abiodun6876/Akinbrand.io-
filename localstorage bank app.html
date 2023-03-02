@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <!-- Meta tag with additional viewport properties -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+  <!-- Meta tags for description and keywords -->
+  <meta name="description" content="cooprative bank App | developed by: Akinbrand.io">
+  <meta name="keywords" content="HTML, css, javascript">
+  <!---email:abiodunmosesakinpelu@gmail.com--->
+    <title>Cooperative bank app</title>
+   
+    <!-- JavaScript code to display the current date -->
+    <script>
+    var currentDate = new Date();
+    document.getElementById('current-date').innerHTML = currentDate.toDateString();
+    </script>
+    </div>
+    <script>
+    // Get the current date
+    var currentDate = new Date();
+    
+    // Save the current date to local storage
+    localStorage.setItem('currentDate', currentDate.toDateString());
+    </script>
+    <script>
+    // Function to get the current date and save it to local storage
+    function saveCurrentDate() {
+    // Get the current date
+    var currentDate = new Date();
+    
+    // Save the current date to local storage
+    localStorage.setItem('currentDate', currentDate.toDateString());
+    }
+    
+    // Call the saveCurrentDate function when the page loads
+    saveCurrentDate();
+    
+    // Function to retrieve the current date from local storage and display it on the page
+    function displayCurrentDate() {
+    // Get the current date from local storage
+    var currentDate = localStorage.getItem('currentDate');
+    
+    // Display the current date on the page
+    document.getElementById('current-date').innerHTML = currentDate;
+    }
+    
+    // Call the displayCurrentDate function when the page loads
+    displayCurrentDate();
+    </script>
+    <script>
+    // Call the saveCurrentDate function every hour
+    setInterval(saveCurrentDate, 3600 * 1000);
+    
+    </script>
+    
+  </head>
+  <body>
+    <div id="app">
+      <h1 id="header">COOPERATIVE BANK PLC</h1>
+      
+      <!-- Sign Up Form -->
+      <form id="signup-form" class="form">
+        <h2>Sign Up</h2>
+        <label for="signup-name">Name:</label>
+        <input type="text" id="signup-name" required />
+        <br />
+        <label for="signup-email">Email:</label>
+        <input type="email" id="signup-email" required />
+        <br />
+        <label for="signup-password">Password:</label>
+        <input type="password" id="signup-password" required />
+        <br />
+        <button type="submit">Sign Up</button>
+      </form>
+      <!-- Login Form -->
+      <form id="login-form" class="form">
+        <h2>Login</h2>
+        <label for="login-email">Email:</label>
+        <input type="email" id="login-email" required />
+        <br />
+        <label for="login-password">Password:</label>
+        <input type="password" id="login-password" required />
+        <br />
+        <button type="submit">Login</button>
+      </form>
+       <div id="current-date"></div>
+      <!-- Account Info -->
+      <div id="account-info" class="hidden">
+        <h2>Account Information</h2>
+        <p>Name: <span id="account-name"></span></p>
+        <p>Email: <span id="account-email"></span></p>
+        <!-- Logout Button -->
+        <button id="logout-button">Logout</button>
+        <!-- Transactions -->
+        <h3>Transactions</h3>
+        <table id="transactions">
+          <tr>
+            <th>Date</th>
+            <th>Type</th>
+            <th>Amount</th>
+          </tr>
+        </table>
+        <!-- Add Transaction Form -->
+        <form id="add-transaction-form">
+          <label for="transaction-type">Type:</label>
+          <select id="transaction-type">
+            <option value="deposit">Deposit</option>
+            <option value="withdrawal">Withdrawal</option>
+          </select>
+          <br />
+          <label for="transaction-amount">Amount:</label>
+          <input type="number" id="transaction-amount" required />
+          <br />
+          <button type="submit">Add Transaction</button>
+        </form>
+      </div>
+    </div>
+    
+    <style type="text/css">
+    /* CSS for styling the page */
+    #current-date {
+    font-size: 20px;
+    font-weight: bold;
+    color: #333;
+    }
+    
+    @media only screen and (max-width: 960px) {
+    /* CSS styles for mobile devices */
+    body {
+    font-size: 14px;
+    }
+    .menu {
+    display: none;
+    }
+    }
+    
+    @media only screen and (min-width: 961px) {
+    /* CSS styles for desktop devices */
+    body {
+    font-size: 16px;
+    }
+    .menu {
+    display: block;
+    }
+    }
+    #header{
+    width: 100%;
+    padding: 10px;
+    margin: 8px 0;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size:18px;
+    }
+    .hidden {
+    display: none;
+    }
+    
+    .form {
+    display: flex;
+    flex-direction: column;
+    margin: 20px 0;
+    }
+    
+    .form label {
+    font-weight: bold;
+    margin-bottom: 5px;
+    }
+    
+    .form input[type='text'],
+    .form input[type='email'],
+    .form input[type='password'] {
+    width: 200px;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    }
+    
+    .form button[type='submit'] {
+    padding: 5px 10px;
+    background-color: #333;
+    color: #fff;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    }
+    
+    #account-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    }
+    
+    #account-info h2 {
+    margin: 20px 0;
+    }
+    
+    #account-info p {
+    margin: 5px 0;
+    }
+    
+    #account-info #logout-button {
+    padding: 5px 10px;
+    background-color: #333;
+    color: #fff;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    margin-top: 20px;
+    }
+    
+    #transactions {
+    border-collapse: collapse;
+    width: 400px;
+    margin-top: 20px;
+    }
+    
+    #transactions th,
+    #transactions td {
+    border: 1px solid #ccc;
+    padding: 5px;
+    }
+    
+    #transactions th {
+    text-align: left;
+    }
+    
+    #transactions td {
+    text-align: right;
+    }
+    
+    #add-transaction-form {
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+    }
+    
+    #add-transaction-form label {
+    font-weight: bold;
+    margin-bottom: 5px;
+    }
+    
+    #add-transaction-form select {
+    width: 200px;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    }
+    
+    #add-transaction-form input[type='number'] {
+    width: 200px;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    }
+    
+    #add-transaction-form button[type='submit'] {
+    padding: 5px 10px;
+    background-color: #333;
+    color: #fff;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    }
+    
+    </style>
+    <script type="text/javascript">
+    const app = document.getElementById('app');
+    const signupForm = document.getElementById('signup-form');
+    const loginForm = document.getElementById('login-form');
+    const accountInfo = document.getElementById('account-info');
+    const logoutButton = document.getElementById('logout-button');
+    const transactionsTable = document.getElementById('transactions');
+    const addTransactionForm = document.getElementById('add-transaction-form');
+    
+    const accounts = JSON.parse(localStorage.getItem('accounts')) || [];
+    
+    signupForm.addEventListener('submit', event => {
+    event.preventDefault();
+    const name = document.getElementById('signup-name').value;
+    const email = document.getElementById('signup-email').value;
+    const password = document.getElementById('signup-password').value;
+    accounts.push({ name, email, password, transactions: [] });
+    localStorage.setItem('accounts', JSON.stringify(accounts));
+    alert('Account created successfully!');
+    });
+    
+    loginForm.addEventListener('submit', event => {
+    event.preventDefault();
+    const email = document.getElementById('login-email').value;
+    const password = document.getElementById('login-password').value;
+    const account = accounts.find(account => account.email === email && account.password === password);
+    if (account) {
+    signupForm.classList.add('hidden');
+    loginForm.classList.add('hidden');
+    accountInfo.classList.remove('hidden');
+    document.getElementById('account-name').innerText = account.name;
+    document.getElementById('account-email').innerText = account.email;
+    account.transactions.forEach(transaction => {
+    const row = document.createElement('tr');
+    row.innerHTML = `
+    <td>${transaction.date}</td>
+    <td>${transaction.type}</td>
+    <td>${transaction.amount}</td>
+    `;
+    transactionsTable.appendChild(row);
+    });
+    } else {
+    alert('Invalid email or password');
+    }
+    });
+    
+    logoutButton.addEventListener('click', () => {
+    signupForm.classList.remove('hidden');
+    loginForm.classList.remove('hidden');
+    accountInfo.classList.add('hidden');
+    });
+    
+    addTransactionForm.addEventListener('submit', event => {
+    event.preventDefault();
+    const type = document.getElementById('transaction-type').value;
+    const amount = document.getElementById('transaction-amount').value;
+    const date = new Date().toISOString();
+    const account = accounts.find(account => account.email === document.getElementById('account-email').innerText);
+    account.transactions.push({ type, amount, date });
+    localStorage.setItem('accounts', JSON.stringify(accounts));
+});
+    </script>
+  </body>
+</html>
