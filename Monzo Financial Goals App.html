@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Monzo Financial Goals</title>
+    
+  </head>
+  <body>
+    <div class="header">
+      <h1 style="color:white;">Monzo Financial Goals</h1>
+      <div class="user-info">
+      <h2>Welcome, <span id="user-name"></span>!</h2>
+      <p>Email: <span id="user-email"></span></p>
+      </div>
+      
+    </div>
+    <div class="container">
+      <h2>Create a New Goal</h2>
+      
+    
+    <form id="add-goal-form">
+    <label for="goal-title">Title:</label>
+    <input type="text" id="goal-title" name="title">
+    <br>
+    <label for="goal-amount">Amount:</label>
+    <input type="number" id="goal-amount" name="amount">
+    <br>
+    <label for="goal-date">Date:</label>
+    <input type="date" id="goal-date" name="date">
+    <br>
+    <button type="submit">Add Goal</button>
+    </form>
+    <ul id="goal-list"></ul>
+    <div class="progress-container">
+    <div class="progress-bar"></div>
+    </div>
+    
+    <div class="badge-container">
+    <img class="badge" src="Bege.png">
+    </div>
+    
+    
+<style type="text/css">
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+}
+
+.header {
+  background-color: #4285f4;
+  color:#0079c1;
+  padding: 20px;
+  text-align: center;
+}
+
+.container {
+  margin: 20px;
+}
+
+h2 {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+
+label {
+  display: block;
+  font-size: 18px;
+  margin-bottom: 5px;
+}
+
+input[type="text"], input[type="number"], input[type="date"] {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+  padding: 10px;
+  width: 100%;
+}
+
+button {
+  background-color: #4285f4;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  cursor: pointer;
+  font-size: 18px;
+  padding: 10px 20px;
+}
+
+
+	.progress-container {
+	width: 100%;
+	height: 20px;
+	background-color: #ddd;
+	border-radius: 10px;
+	margin-bottom: 10px;
+	}
+	
+	.progress-bar {
+	height: 100%;
+	background-color: #4CAF50;
+	border-radius: 10px;
+	width: 0%;
+	transition: width 0.5s ease-in-out;
+	}
+	
+	.badge-container {
+	display: flex;
+	justify-content: center;
+	}
+	
+	.badge {
+	width: 100px;
+	height: 100px;
+	object-fit: cover;
+	border-radius: 50%;
+	}
+	
+	
+.user-info {
+  background-color: #f5f5f5;
+  padding: 20px;
+  border: 1px solid #ccc;
+  margin-bottom: 20px;
+}
+
+.user-info h2 {
+  font-size: 24px;
+  margin-bottom: 10px;
+
+}
+
+.user-info p {
+  font-size: 16px;
+  margin-bottom: 5px;
+}
+
+.user-info span {
+  font-weight: bold;
+}
+
+</style>
+
+<script type="text/javascript">
+// Get current user object from local storage
+var currentUser = JSON.parse(localStorage.getItem("currentUser"));
+var currentUser;
+
+// Check if there is a current user in local storage
+if (localStorage.getItem("currentUser")) {
+  currentUser = JSON.parse(localStorage.getItem("currentUser"));
+} else {
+  // Handle case when there is no current user in local storage
+}
+function displayFinancialGoals() {
+  var currentUser = JSON.parse(localStorage.getItem("currentUser"));
+  var greeting = document.getElementById("greeting");
+  if (greeting) {
+    greeting.innerText = "Hello, " + currentUser.name + "!";
+  }
+
+  // rest of the function code ...
+}
+
+
+// Display user information
+document.getElementById("user-name").innerHTML = currentUser.name;
+document.getElementById("user-email").innerHTML = currentUser.email;
+
+// Listen for form submission
+document.getElementById('add-goal-form').addEventListener('submit', function(event) {
+  event.preventDefault(); // Prevent form from submitting
+
+  // Get form data
+  const title = document.getElementById('goal-title').value;
+  const amount = document.getElementById('goal-amount').value;
+  const date = document.getElementById('goal-date').value;
+
+  // Create goal object
+  const goal = {
+    title: title,
+    amount: amount,
+    date: date,
+    completed: false
+  };
+
+  // Get existing goals from local storage or create an empty array
+  let goals = JSON.parse(localStorage.getItem('goals')) || [];
+
+  // Add new goal to array
+  goals.push(goal);
+
+  // Save array back to local storage
+  localStorage.setItem('goals', JSON.stringify(goals));
+
+  // Clear form fields
+  document.getElementById('add-goal-form').reset();
+});
+
+// Get existing goals from local storage or create an empty array
+let goals = JSON.parse(localStorage.getItem('goals')) || [];
+
+// Display goals on page
+const goalList = document.getElementById('goal-list');
+goals.forEach(function(goal, index) {
+  const li = document.createElement('li');
+  li.innerHTML = `
+    <input type="checkbox" id="goal-${index}" ${goal.completed ? 'checked' : ''}>
+    <label for="goal-${index}">${goal.title} - ${goal.amount} by ${goal.date}</label>
+    <button class="delete-goal" data-index="${index}">Delete</button>
+  `;
+  goalList.appendChild(li);
+});
+
+// Listen for goal deletion
+goalList.addEventListener('click', function(event) {
+  if (event.target.classList.contains('delete-goal')) {
+    const index = event.target.dataset.index;
+    goals.splice(index, 1);
+    localStorage.setItem('goals', JSON.stringify(goals));
+    event.target.parentNode.remove();
+  }
+});
+
+// Listen for goal completion
+goalList.addEventListener('change', function(event) {
+  if (event.target.type === 'checkbox') {
+    const index = event.target.id.split('-')[1];
+    goals[index].completed = event.target.checked;
+    localStorage.setItem('goals', JSON.stringify(goals));
+  }
+});
+
+
+
+</script>
+
+  </body>
+</html>

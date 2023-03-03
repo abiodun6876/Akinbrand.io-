@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mobile Banking App</title>
+    
+  </head>
+  <body>
+    <header>
+      <h1>Mobile Banking App</h1>
+    </header>
+    <main>
+  
+    <div id="dashboard">
+    <h2>Dashboard</h2>
+    <div id="balance">
+    <h3>Balance:</h3>
+    <span id="balance-value">$0.00</span>
+    </div>
+    <div id="transaction-history">
+    <h3>Transaction History:</h3>
+    <table>
+    <thead>
+    <tr>
+    <th>Date</th>
+    <th>Type</th>
+    <th>Amount</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+    <td>01/01/2023</td>
+    <td>Deposit</td>
+    <td>$100.00</td>
+    </tr>
+    </tbody>
+    </table>
+    </div>
+    <div id="actions">
+    <h3>Actions:</h3>
+    <button id="deposit-btn">Deposit</button>
+    <button id="withdraw-btn">Withdraw</button>
+    <button id="transfer-btn">Transfer</button>
+    <button id="select-bank-btn">Select Bank</button>
+    </div>
+    </div>
+    <div id="deposit-form">
+    <h2>Deposit</h2>
+    <form>
+    <div>
+    <label for="deposit-amount">Amount:</label>
+    <input type="number" id="deposit-amount"></div>
+    <button type="submit">Deposit</button>
+        </form>
+      </div>
+      
+      
+      <div id="deposit-form">
+      <h2>Deposit</h2>
+      <form>
+      <div>
+      <label for="deposit-amount">Amount:</label>
+      <input type="number" id="deposit-amount">
+      
+      
+      </div>
+      <button type="submit">Deposit</button>
+          </form>
+        </div>
+     
+      
+    </main>
+
+    
+    
+    
+    
+    
+    
+    
+    <style type="text/css">
+    
+    
+    /* Basic styling for the app */
+    body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    }
+    
+    header {
+    background-color: #0072c6;
+    color: #fff;
+    padding: 1rem;
+    }
+    
+  
+    
+   
+    
+    #dashboard {
+    max-width: 600px
+    ;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    padding: 20px;
+    border-radius: 5px;
+    }
+    
+    #dashboard h2 {
+    margin-top: 0;
+    margin-bottom: 20px;
+    }
+    
+    #dashboard #balance {
+    margin-bottom: 20px;
+    }
+    
+    #dashboard #balance h3 {
+    margin-top: 0;
+    margin-bottom: 10px;
+    }
+    
+    #dashboard #balance-value {
+    font-size: 24px;
+    font-weight: bold;
+    }
+    
+    #dashboard #transaction-history table {
+    width: 100%;
+    border-collapse: collapse;
+    }
+    
+    #dashboard #transaction-history table th,
+    #dashboard #transaction-history table td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #ccc;
+    }
+    
+    #dashboard #transaction-history table th {
+    background-color: #f0f0f0;
+    }
+    
+    #dashboard #actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin-top: 20px;
+    }
+    
+    #dashboard #actions h3 {
+    margin-top: 0;
+    margin-bottom: 10px;
+    }
+    
+    #dashboard #actions button {
+    flex-basis: calc(33.33% - 10px);
+    margin-bottom: 10px;
+    padding: 10px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    }
+    
+    #dashboard #actions button:hover {
+    background-color: #0069d9;
+    }
+    
+    
+    
+    /* Deposit form */
+    #deposit-form {
+    display: none;
+    }
+    
+    #deposit-form input[type="number"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+    }
+    
+    /* Icons */
+    .icon {
+    width: 16px;
+    height: 16px;
+    display: inline-block;
+    margin-right: 5px;
+    vertical-align: middle;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    }
+    
+    .icon-dollar {
+    background-image: url('https://cdn-icons-png.flaticon.com/512/565/565558.png');
+    }
+    
+    .icon-arrow-up {
+    background-image: url('https://cdn-icons-png.flaticon.com/512/271/271228.png');
+    }
+    
+    .icon-arrow-down {
+    background-image: url('https://cdn-icons-png.flaticon.com/512/271/271226.png');
+    }
+    
+    .icon-transfer {
+    background-image: url('https://cdn-icons-png.flaticon.com/512/1166/1166556.png');
+    }
+    
+    .icon-bank {
+    background-image: url('https://cdn-icons-png.flaticon.com/512/747/747301.png');
+    }
+    </style>
+    
+    
+    
+    
+
+<script type="text/javascript">
+
+// Get references to elements on the dashboard
+const balanceValue = document.getElementById("balance-value");
+const depositBtn = document.getElementById("deposit-btn");
+const withdrawBtn = document.getElementById("withdraw-btn");
+const transferBtn = document.getElementById("transfer-btn");
+const selectBankBtn = document.getElementById("select-bank-btn");
+const transactionHistory = document.getElementById("transaction-history");
+
+// Get references to elements on the deposit form
+const depositForm = document.getElementById("deposit-form");
+const depositAmount = document.getElementById("deposit-amount");
+
+// Initialize the balance value to 0 or the saved balance from local storage
+let balance = localStorage.getItem("balance") || 0;
+
+// Set the initial balance value on the dashboard
+balanceValue.innerHTML = "$" + balance.toFixed(2);
+
+// Add click event listeners to the action buttons
+depositBtn.addEventListener("click", function() {
+  // Show the deposit form and hide the other elements
+  depositForm.style.display = "block";
+  transactionHistory.style.display = "none";
+});
+
+withdrawBtn.addEventListener("click", function() {
+  // Show the withdraw form and hide the other elements
+});
+
+transferBtn.addEventListener("click", function() {
+  // Show the transfer form and hide the other elements
+});
+
+selectBankBtn.addEventListener("click", function() {
+  // Show the bank selection form and hide the other elements
+});
+
+// Add submit event listener to the deposit form
+depositForm.addEventListener("submit", function(event) {
+  event.preventDefault();
+
+  // Get the deposit amount entered by the user
+  const depositAmountValue = parseFloat(depositAmount.value);
+
+  // Check if the deposit amount is valid
+  if (isNaN(depositAmountValue) || depositAmountValue <= 0) {
+    alert("Please enter a valid deposit amount.");
+    return;
+  }
+
+  // Add the deposit amount to the balance
+  balance += depositAmountValue;
+
+  // Update the balance value on the dashboard
+  balanceValue.innerHTML = "$" + balance.toFixed(2);
+
+  // Add the transaction to the transaction history
+  const date = new Date().toLocaleDateString();
+  const transactionRow = `
+    <tr>
+      <td>${date}</td>
+      <td>Deposit</td>
+      <td>$${depositAmountValue.toFixed(2)}</td>
+    </tr>
+  `;
+  transactionHistory.querySelector("tbody").innerHTML += transactionRow;
+
+  // Save the new balance to local storage
+  localStorage.setItem("balance", balance);
+
+  // Clear the deposit amount input
+  depositAmount.value = "";
+
+  // Hide the deposit form and show the transaction history
+  depositForm.style.display = "none";
+  transactionHistory.style.display = "block";
+});
+
+// Load the transaction history from local storage on page load
+window.addEventListener("load", function() {
+  const transactionHistoryTable = transactionHistory.querySelector("tbody");
+  const transactionHistoryData = JSON.parse(localStorage.getItem("transactionHistory")) || [];
+
+  // Render the transaction history table rows
+  transactionHistoryTable.innerHTML = "";
+  for (const transaction of transactionHistoryData) {
+    const row = document.createElement("tr");
+    const dateCell = document.createElement("td");
+    dateCell.textContent = transaction.date;
+    const typeCell = document.createElement("td");
+    typeCell.textContent = transaction.type;
+    const amountCell = document.createElement("td");
+    amountCell.textContent = `$${transaction.amount.toFixed(2)}`;
+    row.appendChild(dateCell);
+    row.appendChild(typeCell);
+    row.appendChild(amountCell);
+    transactionHistoryTable.appendChild(row);
+  }
+  
+  
+});
+
+// Add function to save the transaction history to local storage
+function saveTransactionHistory(transactions) {
+  localStorage.setItem("transactionHistory", JSON.stringify(transactions));
+}
+
+// Add function to save the transaction history to local storage
+function saveTransactionHistory(transactions) {
+localStorage.setItem("transactionHistory", JSON.stringify(transactions));
+}
+
+// Add function to get the transaction history from local storage
+function getTransactionHistory() {
+const transactionHistory = localStorage.getItem("transactionHistory");
+return transactionHistory ? JSON.parse(transactionHistory) : [];
+}
+
+// Add function to add a transaction to the transaction history and update the user balance
+function addTransaction(type, amount) {
+const date = new Date().toLocaleDateString();
+const transaction = {
+date: date,
+type: type,
+amount: amount
+};
+const transactions = getTransactionHistory();
+transactions.push(transaction);
+saveTransactionHistory(transactions);
+const user = getCurrentUser();
+if (type === "Deposit") {
+user.balance += amount;
+} else if (type === "Withdrawal" || type === "Transfer") {
+user.balance -= amount;
+}
+updateUser(user);
+}
+
+// Function to render the dashboard components
+function renderDashboard() {
+const user = getCurrentUser();
+const balanceValue = document.getElementById("balance-value");
+balanceValue.textContent = $${user.balance.toFixed(2)};
+const transactionHistoryTable = document.getElementById("transaction-history-table");
+transactionHistoryTable.innerHTML = "";
+const transactions = getTransactionHistory();
+for (const transaction of transactions) {
+const row = document.createElement("tr");
+const dateCell = document.createElement("td");
+dateCell.textContent = transaction.date;
+const typeCell = document.createElement("td");
+typeCell.textContent = transaction.type;
+const amountCell = document.createElement("td");
+amountCell.textContent = $${transaction.amount.toFixed(2)};
+row.appendChild(dateCell);
+row.appendChild(typeCell);
+row.appendChild(amountCell);
+transactionHistoryTable.appendChild(row);
+}
+}
+
+</script>
+
+  </body>
+</html>
