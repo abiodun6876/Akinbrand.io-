@@ -1,0 +1,942 @@
+
+    <!DOCTYPE html>
+    <html>
+    <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+    <!-- Meta tags for description and keywords -->
+    <meta name="description" content="Nigeria telecommunication chatbot ">
+    <meta name="keywords" content="chatbot">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" crossorigin="anonymous" />
+    <title>Moses bot</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
+    
+    <script src="https://kit.fontawesome.com/yourcode.js" crossorigin="anonymous"></script>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/annyang/2.6.1/annyang.min.js"></script>
+    <script type="text/javascript" src="https://unpkg.com/jso/dist/jso.js"></script>
+    
+    </script>
+    </head>
+    <body>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <div id="app">
+    <div id="header">
+    <div id="menu-icon" class="menu-icon">
+    <i class="fa fa-ellipsis-v"></i>
+    </div>
+    
+    
+    <h1>Children Assistance Bot</h1>
+    
+    </div>
+    <aside id="sidebar">
+    <ul id="sidebar-list">
+    <li id="network-type">
+    <i class="fa fa-globe"></i>
+    Network: <span id="network-type-text">Loading...</span>
+    </li>
+    
+    <li id="clear-history">
+    <i class="fa fa-trash"></i>
+    Clear Chat History
+    </li>
+    <li id="logout" >
+    <i class="fa fa-sign-out-alt"></i>
+    Logout
+    </li>
+    </ul>
+    </aside>
+    
+    <div id="chat-window">
+    <!-- <div class="icon">
+    
+    </div> -->
+    <center> <img src="robot1.gif" style="width:100%; height:auto;"></center>
+    <div id="messages">
+    
+    <!-- Messages will be displayed here -->
+    </div>
+    
+    
+    <form  id="message-form" action="submit.php" method="post" >
+    <input type="text" id="message-input" name="chat"  placeholder="Enter your message...">  
+    
+    <button type="submit" class="fa fa-paper-plane">Send</button>
+    
+    </form>
+    </div>
+    
+    </div>
+    
+    
+    
+    <div id="form-popup" style="display:none;">
+    <div class="card">
+    <span class="close-icon" style="color:white;float:right;" ><h2>X</h2></span>
+    <h3>I' m sorry, I am unable to answer that question.kindly,contact our customer service</h3>
+    
+    </div>
+    <div>
+    <form class="card-form" id="consultation-form">
+    <div class="input">
+    <input type="text" id="name" class="input-field" name="name" required/>
+    <label for="name" class="input-label">Full name</label>
+    </div>
+    
+    <div class="input">
+    <input type="text" class="input-field" name="vlockn@gmail.com" required/>
+    <label for="input-label" class="input-label">Email</label>
+    </div>
+    <div class="input">
+    <input type="text" id="designation" class="input-field" name="designation">
+    <label for="designation" class="input-label">Message:</label>
+    </div>
+    
+    
+    <div class="action">
+    <button class="action-button">send</button>
+    </div>
+    </form>
+    </div>
+    </div>
+    
+    <style type="text/css">
+    // iOS Reset 
+    .input {
+    appearance: none;
+    border-radius: 0;
+    }
+    
+    .card {
+    margin: 2rem auto;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 425px;
+    background-color:green;
+    border-radius: 10px;
+    box-shadow: 0 10px 20px 0 rgba(#999, .25);
+    padding: .75rem;
+    color:white;
+    }
+    
+    .card-image {
+    border-radius: 8px;
+    overflow: hidden;
+    padding-bottom: 65%;
+    background-image: url('https://assets.codepen.io/285131/coffee_1.jpg');
+    background-repeat: no-repeat;
+    background-size: 150%;
+    background-position: 0 5%;
+    position: relative;
+    }
+    
+    .card-heading {
+    
+    color:DodgerBlue;
+    }
+    .card-form {
+    padding: 2rem 1rem 0;
+    
+    }
+    
+    .input {
+    display: flex;
+    flex-direction: column-reverse;
+    position: relative;
+    padding-top: 1.5rem;
+    &+.input {
+    margin-top: 1.5rem;
+    font-color:white;
+    }
+    }
+    
+    .input-label {
+    color: #8597a3;
+    position: absolute;
+    top: 1.5rem;
+    transition: .25s ease;
+    }
+    
+    .input-field {
+    
+    border: 0;
+    z-index: 1;
+    background-color: transparent;
+    border-bottom: 2px solid #eee; 
+    font: inherit;
+    font-size: 1.125rem;
+    font-color:white;
+    padding: .25rem 0;
+    &:focus, &:valid {
+    outline: 0;
+    border-bottom-color: #6658d3;
+    &+.input-label {
+    font-color: white;
+    transform: translateY(-1.5rem);
+    }
+    }
+    }
+    
+    
+    .card-info {
+    padding: 1rem 1rem;
+    text-align: center;
+    font-size: .875rem;
+    color: #8597a3;
+    a {
+    display: block;
+    color: #6658d3;
+    text-decoration: none;
+    }
+    }
+    
+    .action {
+    margin-top: 2rem;
+    }
+    
+    .action-button {
+    font: inherit;
+    font-size: 1.25rem;
+    padding: 1em;
+    width: 100%;
+    font-weight: 500;
+    background-color: green;
+    border-radius: 6px;
+    color: #FFF;
+    border: 0;
+    &:focus {
+    outline: 0;
+    }
+    }
+    
+    
+    @media only screen and (max-width: 960px) {
+    /* CSS styles for mobile devices */
+    body {
+    font-size: 14px;
+    }
+    .menu {
+    display: none;
+    }
+    }
+    
+    @media only screen and (min-width: 961px) {
+    /* CSS styles for desktop devices */
+    body {
+    font-size: 16px;
+    }
+    .menu {
+    display: block;
+    }
+    }
+    body {
+    font-family: sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f5f5f5;
+    }
+    
+    #app {
+    max-width: 800px;
+    margin: 0 auto;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+    }
+    
+    #header {
+    background-color:DodgerBlue;
+    color: #fff;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0px 0px 10px #3f51b5;
+    }
+    
+    #header h1 {
+    margin: 0;
+    }
+    
+    #chat-window {
+    display: flex;
+    flex-direction: column;
+    height: calc(100vh - 80px);
+    overflow-y: scroll;
+    padding: 20px;
+    box-shadow: 0px 0px 10px #3f51b5;
+    }
+    
+    #messages {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-bottom: 20px;
+    }
+    
+    #messages .message {
+    background-color: #eee;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    padding: 10px;
+    margin-bottom: 10px;
+    }
+    
+    #messages .message.user {
+    align-self: flex-end;
+    background-color:DodgerBlue;
+    color: #fff;
+    }
+    
+    #message-form {
+    display: flex;
+    align-items: center;
+    }
+    
+    #message-input {
+    flex: 1;
+    border: none;
+    border-radius: 5px 0 0 5px;
+    padding: 10px;
+    font-size: 16px;
+    }
+    
+    button[type="submit"] {
+    border: none;
+    background-color:DodgerBlue;
+    color: #fff;
+    border-radius: 0 5px 5px 0;
+    padding: 10px;
+    font-size: 16px;
+    cursor: pointer;
+    }
+    
+    button[type="submit"]:hover {
+    background-color: #grey;
+    }
+    
+    #messages .message .timestamp {
+    font-size: 12px;
+    color: #999;
+    margin-top: 5px;
+    }
+    
+    #messages .message .timestamp.user {
+    align-self: flex-end;
+    }
+    
+    .message {
+    display: flex;
+    align-items: flex-start;
+    }
+    
+    .message .icon {
+    margin-right: 8px;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    }
+    
+    .user-message .icon {
+    background-color:DodgerBlue;
+    color: white;
+    }
+    
+    .chatbot-message .icon {
+    background-color:DodgerBlue;
+    color: white;
+    }
+    
+    
+    #logo {
+    height: 40px;
+    border-radius: 50%;}
+    
+    
+    #menu-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    height: 50px;
+    cursor: pointer;
+    }
+    
+    #sidebar {
+    position: fixed;
+    top: 50px;
+    left: -250px;
+    width: 250px;
+    height: 100%;
+    background-color: #f5f5f5;
+    box-shadow: 2px 0px 2px rgba(0, 0, 0, 0.1);
+    transition: left 0.3s ease-out;
+    }
+    
+    #sidebar.open {
+    left: 0;
+    }
+    
+    #sidebar-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    color:DodgerBlue;
+    }
+    
+    #sidebar-list li {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    cursor: pointer;
+    }
+    
+    #sidebar-list li:hover {
+    background-color: rgba(0, 0, 0, 0.1);
+    }
+    
+    #sidebar-list li i {
+    margin-right: 10px;
+    }
+    
+    
+    #send {
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    }
+    
+    #send i {
+    font-size: 18px;
+    }
+    
+    
+    
+    
+    #form-popup {
+    background-color:DodgerBlue;
+    margin: 10% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    }
+    
+    #form-popup .form-header {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    background-color:DodgerBlue;
+    padding: 10px;
+    }
+    
+    #form-popup .close-icon {
+    font-size: 20px;
+    color: #888;
+    cursor: pointer;
+    margin-left: auto;
+    }
+    
+    #form-popup label {
+    font-size: 16px;
+    margin-bottom: 5px;
+    }
+    
+    #form-popup input, #form-popup textarea {
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+    width: 100%;
+    }
+    
+    #form-popup input[type="submit"] {
+    background-color:DodgerBlue;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    cursor: pointer;
+    }
+    
+    #form-popup input[type="submit"]:hover {
+    background-color: #45a049;
+    }
+    
+    // iOS Reset 
+    .input {
+    appearance: none;
+    border-radius: 0;
+    }
+    
+    .card {
+    margin: 2rem auto;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 425px;
+    background-color:green;
+    border-radius: 10px;
+    box-shadow: 0 10px 20px 0 rgba(#999, .25);
+    padding: .75rem;
+    color:white;
+    }
+    
+    .card-image {
+    border-radius: 8px;
+    overflow: hidden;
+    padding-bottom: 65%;
+    background-image: url('https://assets.codepen.io/285131/coffee_1.jpg');
+    background-repeat: no-repeat;
+    background-size: 150%;
+    background-position: 0 5%;
+    position: relative;
+    }
+    
+    .card-heading {
+    
+    color:green;
+    }
+    .card-form {
+    padding: 2rem 1rem 0;
+    
+    }
+    
+    .input {
+    display: flex;
+    flex-direction: column-reverse;
+    position: relative;
+    padding-top: 1.5rem;
+    &+.input {
+    margin-top: 1.5rem;
+    font-color:white;
+    }
+    }
+    
+    .input-label {
+    color: #8597a3;
+    position: absolute;
+    top: 1.5rem;
+    transition: .25s ease;
+    }
+    
+    .input-field {
+    
+    border: 0;
+    z-index: 1;
+    background-color: transparent;
+    border-bottom: 2px solid #eee; 
+    font: inherit;
+    font-size: 1.125rem;
+    font-color:white;
+    padding: .25rem 0;
+    &:focus, &:valid {
+    outline: 0;
+    border-bottom-color: #6658d3;
+    &+.input-label {
+    font-color: white;
+    transform: translateY(-1.5rem);
+    }
+    }
+    }
+    
+    
+    .card-info {
+    padding: 1rem 1rem;
+    text-align: center;
+    font-size: .875rem;
+    color: #8597a3;
+    a {
+    display: block;
+    color: #6658d3;
+    text-decoration: none;
+    }
+    }
+    
+    .action {
+    margin-top: 2rem;
+    }
+    
+    .action-button {
+    font: inherit;
+    font-size: 1.25rem;
+    padding: 1em;
+    width: 100%;
+    font-weight: 500;
+    background-color: green;
+    border-radius: 6px;
+    color: #FFF;
+    border: 0;
+    &:focus {
+    outline: 0;
+    }
+    }
+    .wrapper .form .inbox .icon{
+    height: 40px;
+    width: 40px;
+    color: #fff;
+    text-align: center;
+    line-height: 40px;
+    border-radius: 50%;
+    font-size: 18px;
+    background: #007bff;
+    }
+    
+    .footer {
+    position:relative;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background-color:DodgerBlue;
+    color: white;
+    text-align: center;
+    }
+    
+    /* From uiverse.io by @satyamchaudharydev */
+    </style>
+    
+    
+
+    
+    <div class="footer">
+    
+    
+    <p><h5 style="color:white;">Power By: CloudTech</h5></p>
+    </div>
+
+<script type="text/javascript">
+
+
+
+
+
+    
+    
+
+
+
+function speak(message) {
+  // Check if the Web Speech API is supported by the browser
+  if ('speechSynthesis' in window) {
+    // Create a new instance of SpeechSynthesisUtterance
+    const utterance = new SpeechSynthesisUtterance();
+    // Set the text of the utterance
+    utterance.text = message;
+    // Play the synthesized speech
+    window.speechSynthesis.speak(utterance);
+  }
+}
+
+
+
+
+  const app = document.getElementById('app');
+  const messagesContainer = document.getElementById('messages');
+  const messageForm = document.getElementById('message-form');
+  const messageInput = document.getElementById('message-input'); 
+  const networkTypeText = document.getElementById('network-type-text');
+const form = document.getElementById('form-popup');
+// sidebar menu-icon
+ const menuIcon = document.getElementById('menu-icon');
+ const sidebar = document.getElementById('sidebar');
+//clear chat history
+const clearHistoryButton = document.getElementById('clear-history');
+const logoutButton = document.getElementById('logout');
+
+  
+  
+  function addMessageToHistory(message, sender) {
+  const messageDiv = document.createElement('div');
+  messageDiv.classList.add('message');
+  if (sender === 'user') {
+  messageDiv.classList.add('user-message');
+  } else {
+  messageDiv.classList.add('chatbot-message');
+  }
+  
+  const iconDiv = document.createElement('div');
+  iconDiv.classList.add('icon');
+  iconDiv.innerHTML = '<i class="fa fa-user"></i>';
+  messageDiv.appendChild(iconDiv);
+  
+  const textDiv = document.createElement('div');
+  textDiv.classList.add('text');
+  textDiv.textContent = message;
+  messageDiv.appendChild(textDiv);
+  
+  chatHistory.appendChild(messageDiv);
+  chatHistory.scrollTop = chatHistory.scrollHeight;
+  
+ 
+  }
+  
+  
+  
+  
+
+  // Initialize empty list of chats
+  let chats = [];
+  
+  // Fetch chats from local storage
+  const fetchChats = () => {
+  const storedChats = localStorage.getItem('chats');
+  if (storedChats) {
+
+  chats = JSON.parse(storedChats);
+  }
+  };
+  
+  // Save chats to local storage
+  const saveChats = () => {
+  localStorage.setItem('chats', JSON.stringify(chats));
+  };
+  
+  // Render chat messages
+  
+  
+  const renderMessages = () => {
+  messagesContainer.innerHTML = '';
+  chats.forEach(chat => {
+  const messageDiv = document.createElement('div');
+  messageDiv.classList.add('message');
+  if (chat.user) {
+  messageDiv.classList.add('user');
+  }
+  messageDiv.innerHTML = `
+<p><i class="fas fa-user" style="height: 40px;
+    width: 40px;
+    color: #fff;
+    text-align: center;
+    line-height: 40px;
+    border-radius: 50%;
+    font-size: 18px;
+    background:DodgerBlue;"></i></i> ${chat.message}</p>
+  <span class="timestamp ${chat.user ? 'user' : ''}">${chat.timestamp}</span>
+  `;
+  messagesContainer.appendChild(messageDiv);
+  });
+  messagesContainer.scrollTop = messagesContainer.scrollHeight;
+  };
+  
+
+
+
+  // Send message
+
+  const sendMessage = (message, user = true) => {
+  const chat = {
+  message,
+  user,
+  timestamp: new Date().toLocaleString()
+  };
+  chats.push(chat);
+  saveChats();
+  renderMessages();
+  // Speak the message if it's from the chatbot
+  if (!user) {
+  speak(message);
+  }
+  
+  };
+  
+  
+  
+  
+  
+  
+  
+  // Handle form submission
+  messageForm.addEventListener('submit', e => {
+  e.preventDefault();
+  const message = messageInput.value;
+  if (!message) {
+  return;
+  }
+  sendMessage(message);
+  checkForMatchingWords(message);
+  messageInput.value = '';
+  
+  
+  
+  
+  });
+  
+  
+  // Check if message is a question and send a response
+  const checkForQuestion = message => {
+  for (let i = 0; i < questions.length; i++) {
+  const question = questions[i];
+  if (message.includes(question.question)) {
+  sendMessage(question.answer, false);
+  return;
+  }
+  }
+  };
+  
+  const checkForMatchingWords = message => {
+  // Split message into individual words
+  const words = message.split(' ');
+  
+  // Check if any words match a stored keyword
+  for (let i = 0; i < words.length; i++) {
+  for (let j = 0; j < questions.length; j++) {
+  const question = questions[j];
+  if (question.keywords.includes(words[i])) {
+  sendMessage(question.answer, false);
+  return;
+  }
+  }
+  }
+  
+  // If no matching keyword is found, send default response
+ sendMessage('I\'m sorry, I am unable to answer that question.kindly,contact our customer service', false);
+const form = document.getElementById("form-popup").style.display = "block";
+  
+var closeIcon = document.getElementsByClassName("close-icon")[0];
+  closeIcon.onclick = function() {
+  document.getElementById("form-popup").style.display = "none";
+  
+  }
+  
+
+sendMessage(form)
+  };
+  
+  document.getElementById("form-popup").addEventListener("submit", function(event){
+  event.preventDefault(); // prevent form from submitting
+  var confirmation = confirm("Thanks for using Glo service. your message is successfully sent.our custormer service will reply to you soon!");
+  if (confirmation) {
+  this.submit(); // submit form if user confirms
+  }
+  });
+  
+  
+  
+  
+  const greetings = [
+  'Hello! How may I help you today?',
+  'Hi welcome .My name is Moses,How can I help you',
+  'Good day! How can I assist you?'
+  ];
+  
+  const sendGreeting = () => {
+  // Select a random greeting from the greetings array
+  const greeting = greetings[Math.floor(Math.random() * greetings.length)];
+  sendMessage(greeting, false);
+  };
+  
+  
+  
+  clearHistoryButton.addEventListener('click', () => {
+  // Clear chat history
+  chats = [];
+  saveChats();
+  renderMessages();
+  });
+  
+  logoutButton.addEventListener('click', () => {
+  // Log out the user
+  localStorage.removeItem('loggedIn');
+  // Redirect to login page or show login form
+  });
+  
+  // List of likely questions and answers
+  const questions = [
+  {
+  keywords: ['solar','system'],
+  answer: 'What is the solar system?,The solar system is the collection of planets, moons, asteroids, and other celestial bodies that orbit around the sun.'
+  },
+  {
+  keywords: ['day','Good', 'morning','aftoon','evening','Day','Aftoon','Morming','Evening','good'],
+  
+  answer: 'hi! how can i help you?'
+  },
+  {
+  keywords: ['A','B','c','A to Z','a','b','a to z'],
+  answer: 'A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y, Z'
+  },
+  {
+  keywords: ['1','10', '200'],
+  answer: '1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99, 100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 113, 114, 115, 116, 117, 118, 119, 120, 121, 122, 123, 124, 125, 126, 127, 128, 129, 130, 131, 132, 133, 134, 135, 136, 137, 138, 139, 140, 141, 142, 143, 144, 145, 146, 147, 148, 149, 150, 151, 152, 153, 154, 155, 156, 157, 158, 159, 160, 161, 162, 163, 164, 165, 166, 167, 168, 169, 170, 171, 172, 173, 174, 175, 176, 177, 178, 179, 180, 181, 182, 183, 184, 185, 186, 187, 188, 189, 190, 191, 192, 193, 194, 195, 196, 197, 198, 199, 200'
+  },
+  {
+  keywords: ['planets', 'solar','system'],
+  answer: 'There are eight planets in the solar system: Mercury, Venus, Earth, Mars, Jupiter, Saturn, Uranus, and Neptune.'
+  },
+  {
+keywords: ['day','Good', 'morning','aftoon','evening','Day','Aftoon','Morming','Evening','good','hi','hello','HELLO','HI','Hi','Hello'],
+
+answer: 'hi! how can i help you?'
+},
+  
+  ];
+  
+  
+  
+  
+ 
+ 
+ // Initialize app
+ const init = () => {
+ fetchChats();
+ renderMessages();
+ sendGreeting();
+ };
+ 
+ init();
+ 
+ 
+  
+
+  
+  menuIcon.addEventListener('click', () => {
+  sidebar.classList.toggle('open');
+  });
+  
+  //sidebar content
+  
+  
+  function updateNetworkType() {
+  // Check online/offline status
+  const online = window.navigator.onLine;
+  networkTypeText.textContent = online ? 'Online' : 'Offline';
+  }
+  
+  updateNetworkType();
+  window.addEventListener('online', updateNetworkType);
+  window.addEventListener('offline', updateNetworkType);
+  
+/*  clearHistoryButton.addEventListener('click', () => {
+  // Clear chat history here
+  });*/
+  
+  logoutButton.addEventListener('click', () => {
+  // Log out the user here
+  });
+
+
+
+
+</script>
+
+</script>
+
+
+  </body>
+</html>
