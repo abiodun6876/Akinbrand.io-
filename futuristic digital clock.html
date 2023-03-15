@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Futuristic Digital Clock</title>
+</head>
+<body>
+	<div class="clock">
+		<div class="date"></div>
+		<div class="time"></div>
+		<div class="ampm"></div>
+		<div class="day"></div>
+		<div class="year"></div>
+		</div>
+		
+		
+<style type="text/css">
+* {
+	box-sizing: border-box;
+}
+
+body {
+	background-color: #000;
+	color: #fff;
+	font-size: 3em;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 100vh;
+	margin: 0;
+}
+
+/* Set the background color of the clock container */
+.clock {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  
+ 
+
+  
+  
+}
+
+/* Set the font family and color of the clock digits */
+.time {
+  font-size: 6rem;
+  font-weight: bold;
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+  
+  
+}
+
+/* Add a subtle glow effect to the clock digits */
+.time::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: 50%;
+  box-shadow: 0 0 50px 30px #FFFFFF;
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
+}
+
+.time:hover::after {
+  opacity: 1;
+}
+
+/* Set the font family and color of the AM/PM indicator */
+.ampm {
+  font-size: 3rem;
+  font-family: 'Oswald', sans-serif;
+  color: #FFFFFF;
+  margin-top: -1rem;
+}
+
+/* Set the font family and color of the day of the week and year */
+.day, .year {
+  margin-top: 1rem;
+  font-size: 4rem;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: bold;
+  color: #FFFFFF;
+}
+
+/* Add a subtle animation to the day of the week and year */
+.day, .year {
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* Set the background color of the container based on the time of day */
+.morning {
+  background-color: #FF8C00;
+}
+
+.evening {
+  background-color: #4B0082;
+}
+
+.night {
+  background-color: #1E1E1E;
+}
+
+/* Set the border and padding of the container */
+.container {
+  border: 2px solid #FFFFFF;
+  padding: 2rem;
+  border-radius: 1rem;
+}
+
+@media only screen and (max-width: 600px) {
+  .clock {
+    font-size: 2rem;
+  }
+
+  .date,
+  .year {
+    font-size: 1.5rem;
+  }
+}
+</style>
+	<script type="text/javascript">
+	document.addEventListener("DOMContentLoaded", function() {
+	// Your JavaScript code goes here
+	
+	
+function updateTime() {
+	const date = new Date();
+
+	let hours = date.getHours();
+	let minutes = date.getMinutes();
+	let seconds = date.getSeconds();
+	let ampm = hours >= 12 ? 'PM' : 'AM';
+	hours = hours % 12;
+	hours = hours ? hours : 12;
+	minutes = minutes < 10 ? '0' + minutes : minutes;
+	seconds = seconds < 10 ? '0' + seconds : seconds;
+
+	document.querySelector('.date').textContent = date.toLocaleDateString();
+	document.querySelector('.time').textContent = hours + ':' + minutes + ':' + seconds;
+	document.querySelector('.ampm').textContent = ampm;
+	document.querySelector('.day').textContent = date.toLocaleString('default', { weekday: 'long' });
+	document.querySelector('.year').textContent = date.getFullYear();
+
+	if (hours >= 6 && hours < 12) {
+		document.body.classList = 'morning';
+	} else if (hours >= 12 && hours < 18) {
+		document.body.classList = 'evening';
+	} else {
+		document.body.classList = 'night';
+	}
+
+
+	
+	
+	function speak(message) {
+	// Check if the Web Speech API is supported by the browser
+	if ('speechSynthesis' in window) {
+	// Create a new instance of SpeechSynthesisUtterance
+		const speechText = `The time is ${hours} ${minutes} ${ampm}.`;
+		// Speak the time aloud
+		
+		const speech = new SpeechSynthesisUtterance(speechText);
+		speech.lang = 'en-US';
+		window.speechSynthesis.speak(speech);
+		
+	
+	}
+	}
+	
+	
+	
+	
+}
+
+setInterval(updateTime, 1000);
+
+	
+	});
+	</script>
+</body>
+</html>
