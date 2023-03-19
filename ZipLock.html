@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html>
+  <head>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="ZipLock is a client-side text file security application that uses a complex algebraic mathematical function to develop the encrypted algorithm. This ensures that the encrypted text can only be decrypted using your set secret keys, making it impossible for anyone else to access your data.">
+    <title>ZipLock</title>
+    
+  </head>
+  <body>
+    <h1>ZIPLOCK </h1>
+    <center> <h5 id="label">ZipLock is a client-side text file security application <br>that uses a complex algebraic mathematical function to develop the encrypted algorithm. This ensures that the encrypted text can only be decrypted using your set secret keys, making it impossible for anyone else to access your data</h5></center>
+ <!--  <center> <h2>Using ASCII | y=bi^2+ai+c  | Algorithm</h2></center>
+   <center> <h3>secure all your confidential details with zero back door</h3></center>
+   -->
+   
+    <label for="input">Input Text:</label>
+    <textarea id="input" placeholder="Enter some text..."></textarea>
+    <div class="button-container">
+      <button id="encryptBtn">Encrypt</button>
+      <button id="decryptBtn">Decrypt</button>
+      <button id="deleteButton">Delete</button>
+      
+    </div>
+    <label for="encrypted">Encrypted Text:</label>
+    <textarea id="encrypted" placeholder="Encrypted text will appear here..."></textarea>
+    <label for="decrypted">Decrypted Text:</label>
+    <textarea id="decrypted" placeholder="Decrypted text will appear here..." readonly></textarea>
+    <h2>Saved Encrypted Texts</h2>
+    <div id="savedListContainer"></div>
+    <ul id="saved-list"></ul>
+
+    
+    
+<style type="text/css">
+#saved-list li:hover {
+    text-decoration: underline;
+  }
+  
+  #saved-list .time {
+    font-weight: normal;
+    margin-left: 10px;
+    font-size: 0.8em;
+  }
+  
+  /* Add some color and styling to the interface */
+  body {
+    background-color: #f2f2f2;
+    font-family: Arial, sans-serif;
+  }
+  
+  h1 {
+    text-align: center;
+    margin-top: 50px;
+    font-size: 3em;
+    color: #3d5a80;
+  }
+  
+  label {
+    display: block;
+    margin-top: 20px;
+    font-size: 1.5em;
+    color: #3d5a80;
+  }
+  
+  textarea {
+    width: 100%;
+    height: 150px;
+    padding: 10px;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    font-size: 1.2em;
+    border-radius: 5px;
+    border: none;
+    background-color: #fff;
+    color: #3d5a80;
+  }
+  
+  .button-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+  }
+  
+  button {
+    font-size: 1.2em;
+    padding: 10px 20px;
+    margin: 0 10px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    background-color: #3d5a80;
+    color: #fff;
+    transition: all 0.2s ease-in-out;
+  }
+  
+  button:hover {
+    background-color: #293241;
+  }
+  
+  #encrypted,
+  #decrypted {
+    font-size: 1.2em;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    border: none;
+    background-color: #fff;
+    color: #3d5a80;
+  }
+  
+  #savedListContainer {
+    text-align: center;
+    margin-top: 50px;
+    margin-bottom: 20px;
+  }
+  
+  #saved-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  
+  #saved-list li {
+    margin-bottom: 20px;
+    font-size: 1.2em;
+    font-weight: bold;
+    cursor: pointer;
+    background-color: #fff;
+    color: #3d5a80;
+    padding: 10px 20px;
+    border-radius: 5px;
+    border: 2px solid #3d5a80;
+    transition: all 0.2s ease-in-out;
+    margin-right: 10px;
+    margin-left: 10px;
+  }
+  
+  #saved-list li:hover {
+    text-decoration: underline;
+    background-color: #3d5a80;
+    color: #fff;
+  }
+  
+  #saved-list .time {
+    font-weight: normal;
+    margin-left: 10px;
+    font-size: 0.8em;
+    color: #3d5a80;
+  }
+  
+  footer {
+  background-color: #222;
+  color: #fff;
+  text-align: center;
+  padding: 20px;
+  position:relative;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  }
+  
+  footer p {
+  margin: 0;
+  }
+  
+      
+</style>
+<script type="text/javascript">
+// select the elements
+const inputEl = document.getElementById('input');
+const encryptBtn = document.getElementById('encryptBtn');
+const decryptBtn = document.getElementById('decryptBtn');
+const encryptedEl = document.getElementById('encrypted');
+const decryptedEl = document.getElementById('decrypted');
+
+// define the encryption and decryption functions
+function encryptText(input, a, b, c) {
+  let encryptedText = '';
+
+  for (let i = 0; i < input.length; i++) {
+    let asciiCode = input.charCodeAt(i);
+    // modify the ASCII code using a Caesar cipher with a shift determined by a, b, and c
+    asciiCode = (asciiCode - 32 + a * i + b * i * i + c) % 94 + 32;
+    let encryptedChar = String.fromCharCode(asciiCode);
+    encryptedText += encryptedChar;
+  }
+
+  return encryptedText;
+}
+
+function decryptText(encryptedText, a, b, c) {
+  let decryptedText = '';
+
+  for (let i = 0; i < encryptedText.length; i++) {
+    let encryptedChar = encryptedText.charAt(i);
+    let asciiCode = encryptedChar.charCodeAt(0);
+    // check for valid ASCII characters before attempting to decrypt them
+    if (asciiCode >= 32 && asciiCode <= 126) {
+      // recover the original ASCII code using the inverse of the Caesar cipher
+      asciiCode = (asciiCode - 32 - c - a * i - b * i * i + 94000) % 94 + 32;
+      let decryptedChar = String.fromCharCode(asciiCode);
+      
+decryptedText += decryptedChar;
+}
+}
+
+return decryptedText;
+}
+
+
+      
+
+  encryptBtn.addEventListener('click', function() {
+  let input = inputEl.value;
+  let a = parseInt(prompt('Enter key a:'));
+  let b = parseInt(prompt('Enter key b:'));
+  let c = parseInt(prompt('Enter key c:'));
+  
+  let encryptedText = encryptText(input, a, b, c);
+  encryptedEl.value = encryptedText;
+  
+  let currentTime = new Date().toLocaleString();
+  
+  let encryptedList = JSON.parse(localStorage.getItem('encryptedList')) || [];
+  encryptedList.push({ text: encryptedText, time: currentTime });
+  localStorage.setItem('encryptedList', JSON.stringify(encryptedList));
+  
+  getEncryptedList();
+  });
+  
+  
+
+
+
+
+
+decryptBtn.addEventListener("click", function() {
+  let retrievedEncryptedText = encryptedEl.value;
+ /* let a = 2;
+  let b = 3;
+  let c = 4;
+  */
+  
+  let a = parseInt(prompt("Enter key a:"));
+  let b = parseInt(prompt("Enter key b:"));
+  let c = parseInt(prompt("Enter key c:"));
+  
+  
+  let decryptedText = decryptText(retrievedEncryptedText, a, b, c);
+  decryptedEl.value = decryptedText;
+});
+
+
+
+
+const deleteBtn = document.getElementById('deleteButton');
+deleteBtn.addEventListener('click', function() {
+  localStorage.removeItem('encryptedText');
+  encryptedEl.value = '';
+  decryptedEl.value = '';
+});
+
+
+deleteBtn.addEventListener('click', function() {
+  localStorage.removeItem('encryptedList');
+  document.getElementById('saved-list').innerHTML = '';
+});
+
+
+// Retrieve and set the value of the input element from local storage
+function getEncryptedList() {
+  const encryptedList = JSON.parse(localStorage.getItem('encryptedList')) || [];
+
+  let savedListHtml = '';
+  encryptedList.forEach(function(item) {
+    savedListHtml += '<li>' + item.text + ' - ' + item.time + '</li>';
+  });
+  document.getElementById('saved-list').innerHTML = savedListHtml;
+}
+
+// Call the getEncryptedList function when the page loads
+window.onload = function() {
+  getEncryptedList();
+};
+
+
+
+
+
+
+
+</script>
+
+
+<footer>
+  <p>Powered by: CloudPrint.io</p>
+</footer>
+
+
+  </body>
+</html>
