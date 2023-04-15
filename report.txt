@@ -1,0 +1,5 @@
+Mean: 5.408333333333333
+Median: 5.0
+Mode: 4
+Variance: 9.982257974880515
+Standard deviation: 3.159471154304232
