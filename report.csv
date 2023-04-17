@@ -1,0 +1,12 @@
+Descriptive Statistics of Gross Income
+count    1000.000000
+mean       15.379369
+std        11.708825
+min         0.508500
+25%         5.924875
+50%        12.088000
+75%        22.445250
+max        49.650000
+Branch and City with Highest and Lowest Gross Income
+Highest Gross Income: Branch C, Naypyitaw (5265.18)
+Lowest Gross Income: Branch B, Mandalay (5057.03)
