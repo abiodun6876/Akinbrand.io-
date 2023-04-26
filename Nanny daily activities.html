@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<meta name="description" content="Track your nanny's daily activities with this easy-to-use app. Record everything from meals to household chores, and stay organized with a simple, intuitive interface." />
+	<title>Nanny App - Track Your Nanny's Daily Activities</title>
+	
+</head>
+<body>
+	<h1 style="background-color: #4CAF50;	color: #fff;">Nanny Activity Tracker</h1>
+<button style="justify-content:centre; margin-left:600px;"><h5><a href="https://docs.google.com/spreadsheets/d/1BVQR_Mra9uD_ZdeRent_i1VcYowBAKNnMqI-2PgjnqI/edit?usp=drivesdk" style="text-decoration:none;">Database</a></h5></button>
+<h2>Dashboard</h2>
+	<form id="activity-form">
+		<div class="form-row">
+			<label for="date">Date:</label>
+			<input type="date" id="date" name="date" required>
+		</div>
+
+		<div class="form-row">
+			<label for="day">Day:</label>
+			<select id="day" name="day" required>
+				<option value="">Select a day</option>
+				<option value="Sunday">Sunday</option>
+				<option value="Monday">Monday</option>
+				<option value="Tuesday">Tuesday</option>
+				<option value="Wednesday">Wednesday</option>
+				<option value="Thursday">Thursday</option>
+				<option value="Friday">Friday</option>
+				<option value="Saturday">Saturday</option>
+			</select>
+		</div>
+
+		<div class="form-row">
+			<label for="time">Time:</label>
+			<input type="time" id="time" name="time" required>
+		</div>
+
+
+		<div class="form-row">
+		<label for="activity">Note:</label>
+		<input type="text" id="activity" name="activity" required>
+		</div>
+		<div class="form-row">
+		<label for="food">Morning Food:</label>
+		<select id="food" name="food" required>
+		<option value="" disabled selected hidden>Select a food</option>
+		<option value="Bread & fish sauce">Bread & fish sauce</option>
+		<option value="Yam with garden egg sauce">Yam with garden egg sauce</option>
+		<option value="Bread with stew">Bread with stew</option>
+		<option value="Pap with stew">Pap with stew</option>
+		<option value="Yam & fish sauce">Yam & fish sauce</option>
+		<option value="Pap with moin-moin or akara">Pap with moin-moin or akara</option>
+		<option value="Bread & stew with tea">Bread & stew with tea</option>
+		
+		</select>
+		
+		</div>
+		
+		<div class="form-row">
+		<label for="afternoon">Afternoon Food:</label>
+		<select id="afternoon" name="afternoon" required>
+		<option value="" disabled selected hidden>Select a food</option>
+		<option value="Vegetable & porridge">Vegetable & porridge</option>
+		<option value="Eba with okro & stew">Eba with okro & stew</option>
+		<option value="Boiled unripe plantain with efo riro">Boiled unripe plantain with efo riro</option>
+		<option value="Amala with ewedu & stew">Amala with ewedu & stew</option>
+		<option value="Semo & ogbono soup">Semo & ogbono soup</option>
+		<option value="Amala & ewedu">Amala & ewedu</option>
+		<option value="Amala & ewedu">Amala & ewedu</option>
+		</select>
+		
+		</div>
+		
+		<div class="form-row">
+		<label for="evening">Evening Food:</label>
+		<select id="evening" name="evening" required>
+		<option value="" disabled selected hidden>Select a food</option>
+		<option value="Rice & beans">Rice & beans</option>
+		<option value="Beans with corn & fried plantain">Beans with corn & fried plantain</option>
+		<option value="Poundo potato with fish sauce">Poundo potato with fish sauce</option>
+		<option value="Jollof rice checken & plantain">Jollof rice checken & plantain</option>
+		<option value="Unripe plantain porridge">Unripe plantain porridge</option>
+		<option value="Boiled plantain & vegetable">Boiled plantain & vegetable</option>
+		<option value="Fish pepper soup">Fish pepper soup</option>
+		</select>
+		
+		</div>
+		
+		<div class="form-row">
+		<label for="fruit">Fruit:</label>
+		<select id="fruit" name="fruit" required>
+		<option value="" disabled selected hidden>Select a fruit</option>
+		<option value="Apples">Apples</option>
+		<option value="Oranges">Oranges</option>
+		<option value="Bananas">Bananas</option>
+		<option value="Grapes">Grapes</option>
+		<option value="Berries">water melon</option>
+		<option value="Other">Other</option>
+		</select>
+		
+		</div>
+		
+		<div class="form-row">
+		<label for="drink">Drink:</label>
+		<select id="drink" name="drink" required>
+		<option value="" disabled selected hidden>Select a drink</option>
+		<option value="Water">Water</option>
+		<option value="Juice">Juice</option>
+		<option value="Soda">Soda</option>
+		<option value="Tea">Tea</option>
+		<option value="Coffee">Coffee</option>
+		<option value="Other">Other</option>
+		</select>
+		
+		</div>
+		
+		<div class="form-row">
+		<label for="sweeping">Sweeping:</label>
+		<input type="checkbox" id="sweeping" name="sweeping">
+		</div>
+		
+		<div class="form-row">
+		<label for="mopping">Mopping:</label>
+		<input type="checkbox" id="mopping" name="mopping">
+		</div>
+		
+		<div class="form-row">
+		<label for="laundry">Laundry:</label>
+		<input type="checkbox" id="laundry" name="laundry">
+		</div>
+		
+		<div class="form-row">
+		<label for="fridge">Fridge:</label>
+		<input type="checkbox" id="fridge" name="fridge">
+		</div>
+		
+		<div class="form-row">
+		<label for="bedsheets">Bedsheets:</label>
+		<input type="checkbox" id="bedsheets" name="bedsheets">
+		</div>
+		
+		<div class="form-row">
+		<label for="bathroom">Bathroom:</label>
+		<input type="checkbox" id="bathroom" name="bathroom">
+		</div>
+		
+		<div class="form-row">
+		<label for="brushing-teeth">Brushing of Teeth:</label>
+		<input type="checkbox" id="brushing-teeth" name="brushing-teeth">
+		</div>
+		
+		<div class="form-row">
+		<label for="bathing">Bathing:</label>
+		<input type="checkbox" id="bathing" name="bathing">
+		</div>
+		
+		<div class="form-row">
+		<label for="changing-pads">Changing Pads:</label>
+		<input type="checkbox" id="changing-pads" name="changing-pads">
+		</div>
+		
+		<div class="form-row">
+		<label for="exercise">Exercise:</label>
+		<input type="checkbox" id="exercise" name="exercise">
+		</div>
+		
+		<div class="form-row">
+		<label for="watch-movies">Watch Movies:</label>
+		<input type="checkbox" id="watch-movies" name="watch-movies">
+		</div>
+		
+		<div class="form-row">
+		
+		<label for="visits">Number of Visits to His Room:</label>
+		<select id="visits" name="visits">
+		<option value="0">0</option>
+		<option value="1">1</option>
+		<option value="2">2</option>
+		<option value="3">3</option>
+		<option value="4">4</option>
+		<option value="5">5</option>
+		<option value="6">6</option>
+		<option value="7">7</option>
+		<option value="8">8</option>
+		<option value="9">9</option>
+		<option value="10">10</option>
+		</select>
+		</div>
+		
+		<div class="form-row">
+		<input type="submit" value="Submit">
+		</div>
+		</form>
+		</div>
+		
+		<table>
+		<thead>
+		<tr>
+		<th>Date</th>
+		<th>Day</th>
+		<th>Time</th>
+		<th>Note</th>
+		<th>Morning Food</th>
+		<th>Afternoon Food</th>
+		<th>Evening Food</th>
+		<th>Fruit</th>
+		
+		<th>Drink</th>
+		<th>Sweeping</th>
+		<th>Mopping</th>
+		<th>Laundry</th>
+		<th>Fridge</th>
+		<th>Bedsheets</th>
+		<th>Bathroom</th>
+		<th>Brushing</th>
+		<th>Bathing</th>
+		<th>Pads</th>
+		<th>Exercise</th>
+		<th>Movies</th>
+		<th>Visits</th>
+		<th>Actions</th>
+		</tr>
+		</thead>
+		<tbody id="table-body">
+		<!-- table rows will be added dynamically using JavaScript -->
+		</tbody>
+		</table>
+		<!-- Edit and delete buttons should have id attributes -->
+		<button id="edit-btn" class="edit-btn">Edit</button>
+		<button id="delete-btn" class="delete-btn">Delete</button>
+		<!-- Add styles to the form -->
+		<style>
+		body {
+		background-color: #f2f2f2;
+		font-family: Arial, Helvetica, sans-serif;
+		}
+		
+		.container {
+		width: 80%;
+		margin: auto;
+		background-color: #fff;
+		padding: 20px;
+		border-radius: 5px;
+		box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+		}
+		
+		h1 {
+		text-align: center;
+		margin-bottom: 30px;
+		}
+		
+		form {
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: space-between;
+		}
+		
+		.form-row {
+		width: 45%;
+		margin-bottom: 20px;
+		}
+		
+		label {
+		display: block;
+		margin-bottom: 5px;
+		font-weight: bold;
+		}
+		
+		
+		input[type="text"],
+		select {
+		width: 100%;
+		padding: 15px;
+		border: none;
+		border-radius: 5px;
+		margin-top: 5px;
+		box-sizing: border-box;
+		font-size: 18px;
+		background-color: #f9f9f9;
+		}
+		
+		input[type="checkbox"] {
+		margin-right: 10px;
+		}
+		
+		input[type="submit"] {
+		background-color: #4CAF50;
+		color: #fff;
+		padding: 10px 20px;
+		border: none;
+		border-radius: 5px;
+		cursor: pointer;
+		font-size: 16px;
+		margin-top: 10px;
+		}
+		table {
+		width: 100%;
+		border-collapse: collapse;
+		margin-top: 20px;
+		}
+		
+		th, td {
+		padding: 10px;
+		text-align: left;
+		border-bottom: 1px solid #ddd;
+		}
+		
+		th {
+		background-color: #4CAF50;
+		color: #fff;
+		}
+		
+		tr:hover {
+		background-color: #f5f5f5;
+		}
+		
+		.btn-container {
+		display: flex;
+		justify-content: flex-end;
+		margin-top: 20px;
+		}
+		
+		.btn {
+		padding: 10px 20px;
+		background-color: #4CAF50;
+		color: #fff;
+		border: none;
+		border-radius: 5px;
+		cursor: pointer;
+		font-size: 16px;
+		margin-left: 10px;
+		transition: background-color 0.3s ease;
+		}
+		
+		.btn:hover {
+		background-color: #2f904f;
+		}
+		
+		.btn-delete {
+		background-color: #f44336;
+		}
+		
+		.btn-delete:hover {
+		background-color: #dd1919;
+		}
+		
+		.btn-edit {
+		background-color: #2196F3;
+		}
+		
+		.btn-edit:hover {
+		background-color: #0076D7;
+		}
+		
+		.btn-add {
+		background-color: #f2a900;
+		}
+		
+		.btn-add:hover {
+		background-color: #f07c00;
+		}
+		</style>
+		
+
+<script>
+const form = document.querySelector("form");
+form.addEventListener("submit", function (event) {
+  event.preventDefault();
+  const formData = new FormData(form);
+  const data = Object.fromEntries(formData.entries());
+  addData(data);
+  alert("Data saved successfully!");
+  form.reset();
+  displayData();
+});
+
+	// Function to add a new data entry with timestamp
+	function addData(data) {
+	const timestamp = new Date().toLocaleString();
+	const newData = { ...data, timestamp };
+	const savedData = JSON.parse(localStorage.getItem("nannyData")) || [];
+	savedData.push(newData);
+	localStorage.setItem("nannyData", JSON.stringify(savedData));
+	}
+	
+	// Function to update the data with timestamp
+	function updateData(index, newData) {
+	const savedData = JSON.parse(localStorage.getItem("nannyData")) || [];
+	const timestamp = new Date().toLocaleString();
+	newData.timestamp = timestamp;
+	savedData[index] = newData;
+	localStorage.setItem("nannyData", JSON.stringify(savedData));
+	}
+	
+	
+	const tableBody = document.querySelector("#table-body");
+	
+	// Function to display the data in a table
+	function displayData() {
+	tableBody.innerHTML = "";
+	const savedData = JSON.parse(localStorage.getItem("nannyData")) || [];
+	savedData.forEach((data, index) => {
+	const row = document.createElement("tr");
+	row.innerHTML = `
+	<td>${data.date}</td>
+	<td>${data.day}</td>
+	<td>${data.time}</td>
+	<td>${data.activity}</td>
+	<td>${data.food}</td>
+	<td>${data.afternoon}</td>
+	<td>${data.evening}</td>
+	<td>${data.fruit}</td>
+	
+	<td>${data.drink}</td>
+	<td>${data.sweeping ? "Yes" : "No"}</td>
+	<td>${data.mopping ? "Yes" : "No"}</td>
+	<td>${data.laundry ? "Yes" : "No"}</td>
+	<td>${data.fridge ? "Yes" : "No"}</td>
+	<td>${data.bedsheets ? "Yes" : "No"}</td>
+	<td>${data.bathroom ? "Yes" : "No"}</td>
+	<td>${data.brushing ? "Yes" : "No"}</td>
+	<td>${data.bathing ? "Yes" : "No"}</td>
+	<td>${data.pads ? "Yes" : "No"}</td>
+	<td>${data.exercise ? "Yes" : "No"}</td>
+	<td>${data.movies ? "Yes" : "No"}</td>
+	<td>${data.visits}</td>
+	<td>
+	<button class="edit-btn" data-index="${index}">Edit</button>
+	<button class="delete-btn" data-index="${index}">Delete</button>
+	</td>
+	`;
+	tableBody.appendChild(row);
+	});
+	}
+	
+
+	
+	// Function to delete the data
+	function deleteData(index) {
+	const savedData = JSON.parse(localStorage.getItem("nannyData")) || [];
+	savedData.splice(index, 1);
+	localStorage.setItem("nannyData", JSON.stringify(savedData));
+	}
+	
+	// Add event listener to the edit buttons
+	tableBody.addEventListener("click", (event) => {
+	if (event.target.classList.contains("edit-btn")) {
+	const index = event.target.dataset.index;
+	const savedData = JSON.parse(localStorage.getItem("nannyData")) || [];
+	const newData = prompt(
+	"Enter the new data in this format: date,day,time,activity,food,afternoon,evening,fruit,drink,sweeping,mopping,laundry,fridge,bedsheets,bathroom,brushing,bathing,pads,exercise,movies,visits",
+	Object.values(savedData[index]).join(",")
+	);
+	if (newData) {
+	const newDataArr = newData.split(",");
+	const newDataObj = {
+	date: newDataArr[0].trim(),
+	day: newDataArr[1].trim(),
+	time: newDataArr[2].trim(),
+	activity: newDataArr[3].trim(),
+	food: newDataArr[4].trim(),
+	afternoon: newDataArr[5].trim(),
+	evening: newDataArr[6].trim(),
+	fruit: newDataArr[7].trim(),
+	drink: newDataArr[8].trim(),
+	sweeping: newDataArr[9].trim().toLowerCase() === "yes",
+	mopping: newDataArr[10].trim().toLowerCase() === "yes",
+	laundry: newDataArr[11].trim().toLowerCase() === "yes",
+	fridge: newDataArr[12].trim().toLowerCase() === "yes",
+	bedsheets: newDataArr[13].trim().toLowerCase() === "yes",
+	bathroom: newDataArr[14].trim().toLowerCase() === "yes",
+	brushing: newDataArr[15].trim().toLowerCase() === "yes",
+	bathing: newDataArr[16].trim().toLowerCase() === "yes",
+	pads: newDataArr[17].trim().toLowerCase() === "yes",
+	exercise: newDataArr[18].trim().toLowerCase() === "yes",
+	movies: newDataArr[19].trim().toLowerCase() === "yes",
+	visits: newDataArr[20].trim(),
+	};
+	updateData(index, newDataObj);
+	displayData();
+	}
+	} // <-- add this closing curly brace
+	});
+	
+	// Add event listener to the delete buttons
+	tableBody.addEventListener("click", (event) => {
+	if (event.target.classList.contains("delete-btn")) {
+	const index = event.target.dataset.index;
+	deleteData(index);
+	displayData();
+	}
+	});
+	
+	// Display the initial data on page load
+	displayData();
+	
+</script> 
+</body>
+</html>
