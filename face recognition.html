@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Transfer Learning - TensorFlow.js</title>
+    <title>object detection- TensorFlow.js</title>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -9,30 +9,165 @@
     <link rel="stylesheet" href="facestyle.css">
   </head>  
   <body>
-    <h1>Make your own "Teachable Machine" using Transfer Learning with MobileNet v3 in TensorFlow.js using saved graph model from TFHub.</h1>
+    <h1>OBJECT DETECTION APP</h1>
     
     <p id="status">Awaiting TF.js load</p>
+
+
     
     <video id="webcam" autoplay></video>
     
     <button id="enableCam">Enable Webcam</button>
-    <button class="dataCollector" data-1hot="0" data-name="Class 1">Gather Class 1 Data</button>
-    <button class="dataCollector" data-1hot="1" data-name="Class 2">Gather Class 2 Data</button>
+    <button class="dataCollector" data-1hot="0" data-name="Cup">Gather Cup Data</button>
+    <button class="dataCollector" data-1hot="1" data-name="Remote">Gather Remote Data</button>
     <button id="train">Train &amp; Predict!</button>
     <button id="reset">Reset</button>
 
-    <ol>
-      <li>First enable webcam and allow access when asked.</li>
-      <li>Now find an object, point cam at it, click and hold gather class 1 data button to gather at least 30 samples.</li>
-      <li>Repeat for class 2 with a different object of interest. Get similar number of samples.</li>
-      <li>Click train and predict and wait while the model is trained live in your browser. No data is sent to server.</li>
-      <li>Once trained you will see live predictions appear above the video for what it thinks it sees.</li>
-    </ol>
+   
     <!-- Import TensorFlow.js library -->
     <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@3.11.0/dist/tf.min.js" type="text/javascript"></script>
 <style >
-    
-    
+    /**
+ * @license
+ * Copyright 2018 Google LLC. All Rights Reserved.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ * =============================================================================
+ */
+
+/* CSS files add styling rules to your content */
+
+/* Apply a reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Set global font properties */
+html {
+  font-size: 62.5%;
+}
+
+body {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 1.6rem;
+  line-height: 1.4;
+  margin: 0;
+  padding: 0;
+}
+
+/* Set the background color */
+body {
+  background-color: #f5f5f5;
+}
+
+/* Set the heading style */
+h3 {
+  font-size: 2.4rem;
+  font-style: italic;
+  color: #ff6f00;
+  margin: 2rem 0;
+}
+
+/* Set the paragraph style */
+p {
+  font-size: 1.6rem;
+  margin-bottom: 1rem;
+}
+
+/* Set the button styles */
+button {
+  padding: 1.6rem 2.4rem;
+  margin: 1rem 0;
+  border-radius: 4px;
+  border: none;
+  background-color: #4caf50;
+  color: #fff;
+  font-size: 1.6rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+/* Set the button hover state */
+button:hover {
+  background-color: #3e8e41;
+}
+
+/* Set the video styles */
+video {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 2rem auto;
+}
+
+/* Set the ordered list styles */
+ol {
+  font-size: 1.6rem;
+  margin: 2rem 0;
+}
+
+ol li {
+  margin-bottom: 1rem;
+}
+
+/* Set the status paragraph style */
+#status {
+  font-size: 2rem;
+  font-weight: 500;
+  margin-bottom: 2rem;
+}
+
+/* Set the data collector button styles */
+.dataCollector {
+  background-color: #2196f3;
+}
+
+/* Set the reset button style */
+#reset {
+  background-color: #f44336;
+}
+
+/* Set the train button style */
+#train {
+  background-color: #009688;
+}
+
+/* Add responsive design for small screens */
+@media only screen and (max-width: 600px) {
+  h3 {
+    font-size: 2rem;
+  }
+
+  button {
+    width: 100%;
+  }
+}
+
+ h1 {
+  font-size: 2.5rem;
+  font-weight: bold;
+  text-align: center;
+}
+
+#status {
+  font-size: 1.2rem;
+  font-style: italic;
+  text-align: center;
+  margin-top: 1rem;
+}
+ 
     </style>
     <!-- Import the page's JavaScript to do some stuff -->
     <script type="module" src="facescript.js"></script>
@@ -71,8 +206,8 @@ RESET_BUTTON.addEventListener('click', reset);
 // Just add more buttons in HTML to allow classification of more classes of data!
 let dataCollectorButtons = document.querySelectorAll('button.dataCollector');
 for (let i = 0; i < dataCollectorButtons.length; i++) {
-  dataCollectorButtons[i].addEventListener('mousedown', gatherDataForClass);
-  dataCollectorButtons[i].addEventListener('mouseup', gatherDataForClass);
+  dataCollectorButtons[i].addEventListener('click', gatherDataForClass);
+  //dataCollectorButtons[i].addEventListener('mouseup', gatherDataForClass);
   // For mobile.
   dataCollectorButtons[i].addEventListener('touchend', gatherDataForClass);
 
@@ -142,8 +277,8 @@ function enableCam() {
     // getUsermedia parameters.
     const constraints = {
       video: true,
-      width: 640, 
-      height: 480 
+      width: 380, 
+      height: 380 
     };
 
     // Activate the webcam stream.
@@ -253,21 +388,33 @@ function logProgress(epoch, logs) {
 
 
 /**
- *  Make live predictions from webcam once trained.
+ * Make live predictions from webcam once trained.
  **/
-function predictLoop() {
-  if (predict) {
-    tf.tidy(function() {
-      let imageFeatures = calculateFeaturesOnCurrentFrame();
-      let prediction = model.predict(imageFeatures.expandDims()).squeeze();
-      let highestIndex = prediction.argMax().arraySync();
-      let predictionArray = prediction.arraySync();
-      STATUS.innerText = 'Prediction: ' + CLASS_NAMES[highestIndex] + ' with ' + Math.floor(predictionArray[highestIndex] * 100) + '% confidence';
-    });
-
-    window.requestAnimationFrame(predictLoop);
-  }
+var obj_details = {
+    cup: "This is a cup",
+    remote: "This is a remote"
 }
+let last_word = "";
+let last_spoken_object = "";
+function predictLoop() {
+    if (predict) {
+        tf.tidy(function() {
+            let imageFeatures = calculateFeaturesOnCurrentFrame();
+            let prediction = model.predict(imageFeatures.expandDims()).squeeze();
+            let highestIndex = prediction.argMax().arraySync();
+            let predictionArray = prediction.arraySync();
+            let name = CLASS_NAMES[highestIndex];
+            let content = 'Prediction: ' + name + ' with ' + Math.floor(predictionArray[highestIndex] * 100) + '% confidence <br> Object details: ' + obj_details[name.toLowerCase()];
+            STATUS.innerHTML = content;
+            if (name !== last_spoken_object) {
+                speak(name);
+                last_spoken_object = name;
+            }
+        });
+        window.requestAnimationFrame(predictLoop);
+    }
+}
+
 
 
 /**
@@ -286,7 +433,17 @@ function reset() {
   STATUS.innerText = 'No data collected';
   
   console.log('Tensors in memory: ' + tf.memory().numTensors);
-}</script >
+}
+
+const synth = window.speechSynthesis;
+
+const speak = (text) => {
+  const utterance = new SpeechSynthesisUtterance(text);
+  synth.speak(utterance);
+}
+
+
+</script >
       
       
   </body>
