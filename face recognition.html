@@ -16,8 +16,8 @@
     <video id="webcam" autoplay></video>
     
     <button id="enableCam">Enable Webcam</button>
-    <button class="dataCollector" data-1hot="0" data-name="Class 1">Gather Class 1 Data</button>
-    <button class="dataCollector" data-1hot="1" data-name="Class 2">Gather Class 2 Data</button>
+    <button class="dataCollector" data-1hot="0" data-name="Cup">Gather Cup Data</button>
+    <button class="dataCollector" data-1hot="1" data-name="Remote">Gather Remote Data</button>
     <button id="train">Train &amp; Predict!</button>
     <button id="reset">Reset</button>
 
@@ -71,8 +71,8 @@ RESET_BUTTON.addEventListener('click', reset);
 // Just add more buttons in HTML to allow classification of more classes of data!
 let dataCollectorButtons = document.querySelectorAll('button.dataCollector');
 for (let i = 0; i < dataCollectorButtons.length; i++) {
-  dataCollectorButtons[i].addEventListener('mousedown', gatherDataForClass);
-  dataCollectorButtons[i].addEventListener('mouseup', gatherDataForClass);
+  dataCollectorButtons[i].addEventListener('click', gatherDataForClass);
+  //dataCollectorButtons[i].addEventListener('mouseup', gatherDataForClass);
   // For mobile.
   dataCollectorButtons[i].addEventListener('touchend', gatherDataForClass);
 
@@ -253,21 +253,33 @@ function logProgress(epoch, logs) {
 
 
 /**
- *  Make live predictions from webcam once trained.
+ * Make live predictions from webcam once trained.
  **/
-function predictLoop() {
-  if (predict) {
-    tf.tidy(function() {
-      let imageFeatures = calculateFeaturesOnCurrentFrame();
-      let prediction = model.predict(imageFeatures.expandDims()).squeeze();
-      let highestIndex = prediction.argMax().arraySync();
-      let predictionArray = prediction.arraySync();
-      STATUS.innerText = 'Prediction: ' + CLASS_NAMES[highestIndex] + ' with ' + Math.floor(predictionArray[highestIndex] * 100) + '% confidence';
-    });
-
-    window.requestAnimationFrame(predictLoop);
-  }
+var obj_details = {
+    cup: "This is a cup",
+    remote: "This is a remote"
 }
+let last_word = "";
+let last_spoken_object = "";
+function predictLoop() {
+    if (predict) {
+        tf.tidy(function() {
+            let imageFeatures = calculateFeaturesOnCurrentFrame();
+            let prediction = model.predict(imageFeatures.expandDims()).squeeze();
+            let highestIndex = prediction.argMax().arraySync();
+            let predictionArray = prediction.arraySync();
+            let name = CLASS_NAMES[highestIndex];
+            let content = 'Prediction: ' + name + ' with ' + Math.floor(predictionArray[highestIndex] * 100) + '% confidence <br> Object details: ' + obj_details[name.toLowerCase()];
+            STATUS.innerHTML = content;
+            if (name !== last_spoken_object) {
+                speak(name);
+                last_spoken_object = name;
+            }
+        });
+        window.requestAnimationFrame(predictLoop);
+    }
+}
+
 
 
 /**
@@ -286,7 +298,17 @@ function reset() {
   STATUS.innerText = 'No data collected';
   
   console.log('Tensors in memory: ' + tf.memory().numTensors);
-}</script >
+}
+
+const synth = window.speechSynthesis;
+
+const speak = (text) => {
+  const utterance = new SpeechSynthesisUtterance(text);
+  synth.speak(utterance);
+}
+
+
+</script >
       
       
   </body>
